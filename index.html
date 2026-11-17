@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Speak First, Pay Clearly</title>
+<meta name="description" content="A product case study and working concept prototype by Hardik Jain. Not affiliated with Supernova.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4FB; --paper:#FFFFFF; --ink:#12151E; --ink-2:#3B4054; --muted:#6B7189; --line:#E4E1EE;
+  --accent:#8652FF; --accent-ink:#6A35E8; --accent-soft:#EFE8FF; --mint:#1FA97A; --orange:#D97A00; --red:#C9463F;
+  --bar-muted:#CFCBDD; --grid:#ECE9F3; --shadow:0 1px 2px rgba(18,21,30,.05),0 8px 24px rgba(18,21,30,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1118; --paper:#171B26; --ink:#F1F2F8; --ink-2:#C9CCDD; --muted:#8C94AE; --line:#272C3B;
+    --accent:#9B70FF; --accent-ink:#B597FF; --accent-soft:#231C3D; --mint:#3CDB9E; --orange:#FF9904; --red:#E26F68;
+    --bar-muted:#3A4053; --grid:#222736; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1118; --paper:#171B26; --ink:#F1F2F8; --ink-2:#C9CCDD; --muted:#8C94AE; --line:#272C3B;
+  --accent:#9B70FF; --accent-ink:#B597FF; --accent-soft:#231C3D; --mint:#3CDB9E; --orange:#FF9904; --red:#E26F68;
+  --bar-muted:#3A4053; --grid:#222736; --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Onest,system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-ink);text-underline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.narrow{max-width:760px}
+.eyebrow{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:15px;color:var(--accent-ink)}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em;margin:0}
+h1{font-size:clamp(40px,6.4vw,72px);font-weight:800}
+h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;margin:6px 0 16px}
+h3{font-size:20px;font-weight:700}
+p{margin:0 0 14px}
+.lede{font-size:clamp(18px,2vw,21px);color:var(--ink-2);max-width:720px}
+section{padding:72px 0;border-top:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:14px 24px;font:600 16px Onest,sans-serif;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn-primary{background:#8652FF;color:#fff;box-shadow:0 6px 20px rgba(134,82,255,.35)}
+.btn-primary:hover{transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn:focus-visible,button:focus-visible{outline:3px solid #CB9CF8;outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
+.topbar .who{font-weight:700;font-size:15px}
+.topbar .who span{color:var(--muted);font-weight:500}
+.topbar .btn{padding:8px 16px;font-size:14px}
+.disclaimer-mini{font-size:13px;color:var(--muted)}
+
+/* hero */
+.hero{padding:72px 0 56px;border-top:0}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 20px}
+.meta{font-size:14px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+.stat > b{display:block;font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:6px}
+.stat span{font-size:14px;color:var(--ink-2);line-height:1.45;display:block}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+.facts{list-style:none;padding:0;margin:0}
+.facts li{padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;justify-content:space-between;font-size:15px}
+.facts li:last-child{border-bottom:0}
+.facts b{font-weight:700;white-space:nowrap}
+.src{font-size:13px;color:var(--muted)}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:18px 22px;border-radius:0 12px 12px 0;margin:24px 0;font-size:17px}
+.callout b{color:var(--ink)}
+
+/* charts */
+.chart-card{margin-top:28px}
+.chart-title{font-weight:700;font-size:17px;margin-bottom:2px}
+.chart-sub{font-size:14px;color:var(--muted);margin-bottom:18px}
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hrow{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:14px;align-items:center;font-size:14px}
+.hrow .lab{color:var(--ink-2);line-height:1.3}
+.hrow .lab.sel{color:var(--ink);font-weight:600}
+.htrack{position:relative;height:22px;display:flex;align-items:center;cursor:default}
+.hbar{height:16px;border-radius:0 4px 4px 0;background:var(--bar-muted);min-width:2px}
+.hbar.sel{background:#8652FF}
+.hval{margin-left:8px;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cols{display:flex;align-items:flex-end;gap:2px;height:200px;border-bottom:1px solid var(--line);position:relative;padding-left:28px}
+.cols .gl{position:absolute;left:28px;right:0;border-top:1px dashed var(--grid);font-size:11px;color:var(--muted)}
+.cols .gl span{position:absolute;left:-28px;top:-8px;width:24px;text-align:right}
+.col{flex:1;display:flex;align-items:flex-end;height:100%;cursor:default;position:relative;z-index:1}
+.col i{display:block;width:100%;background:#8652FF;border-radius:4px 4px 0 0;min-height:2px}
+.col.partial i{background:repeating-linear-gradient(135deg,#8652FF 0 3px,transparent 3px 6px);border:1.5px solid #8652FF;border-bottom:0}
+.col.pre i{background:var(--bar-muted)}
+.xlabels{display:flex;gap:2px;padding-left:28px;font-size:11px;color:var(--muted);margin-top:6px}
+.xlabels span{flex:1;text-align:center;white-space:nowrap}
+details.table{margin-top:14px;font-size:14px}
+details.table summary{cursor:pointer;color:var(--accent-ink);font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+td.num{font-variant-numeric:tabular-nums;text-align:right}
+th.num{text-align:right}
+tr.pick td{background:var(--accent-soft)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
+.tip{position:fixed;z-index:200;pointer-events:none;background:#12151E;color:#fff;font-size:13px;line-height:1.4;padding:8px 10px;border-radius:8px;max-width:260px;opacity:0;transition:opacity .1s;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.quote{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;font-size:15px;display:flex;flex-direction:column;gap:12px}
+.quote q{quotes:"“" "”";color:var(--ink)}
+.quote .qm{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);margin-top:auto}
+.tag{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:6px}
+.t1{background:#FFE9EC;color:#B0313A}.t2{background:#FFF1DC;color:#9A5A00}.t3{background:#E1F6EE;color:#137A57}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .t1{background:#3A1E24;color:#FF9AA2}:root:not([data-theme="light"]) .t2{background:#3A2C14;color:#FFC266}:root:not([data-theme="light"]) .t3{background:#123327;color:#6FE8B9}}
+:root[data-theme="dark"] .t1{background:#3A1E24;color:#FF9AA2}:root[data-theme="dark"] .t2{background:#3A2C14;color:#FFC266}:root[data-theme="dark"] .t3{background:#123327;color:#6FE8B9}
+
+/* journey */
+.journey{display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-top:28px;position:relative}
+.jstep{padding:0 10px 0 0;position:relative}
+.jstep .dot{width:14px;height:14px;border-radius:50%;background:var(--paper);border:3px solid var(--bar-muted);position:relative;z-index:1}
+.jstep.bad .dot{border-color:#E26F68}
+.jstep::before{content:"";position:absolute;top:6px;left:14px;right:0;height:2px;background:var(--line)}
+.jstep:last-child::before{display:none}
+.jstep .when{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:12px 0 4px}
+.jstep h4{margin:0 0 6px;font-size:16px;line-height:1.3}
+.jstep p{font-size:14px;color:var(--ink-2);line-height:1.45;margin-bottom:8px}
+
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.principle .n{font-family:"Barlow Condensed",sans-serif;font-weight:700;color:var(--accent-ink);font-size:15px;letter-spacing:.08em}
+.principle h3{margin:6px 0 8px}
+.principle p{font-size:15px;color:var(--ink-2);margin:0}
+.notdoing{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.notdoing li{margin-bottom:8px}
+
+.steps{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.step{display:grid;grid-template-columns:56px 1fr 1fr;gap:20px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px}
+.step .num{width:44px;height:44px;border-radius:50%;background:#8652FF;color:#fff;font-weight:800;display:grid;place-items:center;font-size:18px}
+.step h3{margin-bottom:6px}
+.step .tags{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.step .ba{font-size:14px;line-height:1.5}
+.step .ba div{padding:10px 12px;border-radius:10px;margin-bottom:8px}
+.step .before{background:color-mix(in srgb,#E26F68 10%,transparent)}
+.step .after{background:color-mix(in srgb,#3CDB9E 14%,transparent)}
+.step .ba b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:2px}
+
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.timeline .card h3{font-size:17px;margin:6px 0 8px}
+.timeline .card ul{margin:0;padding-left:18px;font-size:15px;color:var(--ink-2)}
+
+.cta-band{background:#12151E;color:#fff;border-radius:24px;padding:48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;margin-top:8px}
+.cta-band h2{color:#fff}
+.cta-band p{color:#DBDDF0}
+.cta-band ol{color:#DBDDF0;padding-left:20px;margin:0 0 24px}
+.cta-band ol li{margin-bottom:6px}
+.mini-phone{justify-self:center;width:230px;height:420px;border-radius:34px;border:8px solid #262B3B;background:#12151E;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.4)}
+.mini-phone p{font-size:14px;margin:0;color:#fff;font-weight:600}
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.proof .card > b{font-size:26px;display:block;letter-spacing:-.02em}
+.proof .card span{font-size:14px;color:var(--ink-2)}
+.sources{columns:2;column-gap:32px;font-size:14px;padding-left:18px}
+.sources li{margin-bottom:6px;break-inside:avoid}
+footer{padding:40px 0 64px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+
+@media (max-width:900px){
+  .stats{grid-template-columns:1fr 1fr}
+  .grid2,.principles,.notdoing,.timeline,.proof,.cta-band{grid-template-columns:1fr}
+  .quotes{grid-template-columns:1fr}
+  .journey{grid-template-columns:1fr;gap:18px}
+  .jstep{padding-left:28px}
+  .jstep .dot{position:absolute;left:0;top:4px}
+  .jstep::before{left:6px;top:20px;bottom:-22px;right:auto;width:2px;height:auto}
+  .jstep .when{margin-top:0}
+  .step{grid-template-columns:44px 1fr;}
+  .step .ba{grid-column:1 / -1}
+  .cta-band{padding:28px}
+  .sources{columns:1}
+  .xlabels span:nth-child(even){visibility:hidden}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  section{padding:52px 0}
+  .stats{grid-template-columns:1fr}
+  .hrow{grid-template-columns:1fr;gap:4px}
+  .topbar .disclaimer-mini,.topbar .who span{display:none}
+  .topbar .btn{white-space:nowrap}
+}
+
+/* ========= PROTOTYPE (Supernova design system) ========= */
+.proto{position:fixed;inset:0;z-index:100;background:#0A0C12;display:none;flex-direction:column;font-family:Onest,sans-serif;color:#fff}
+.proto.open{display:flex}
+.proto-banner{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 16px;background:#FFC700;color:#12151E;font-size:13px;font-weight:600}
+.proto-banner button{background:#12151E;color:#fff;border:0;border-radius:999px;padding:6px 14px;font:600 13px Onest,sans-serif;cursor:pointer}
+.proto-body{flex:1;min-height:0;display:flex;gap:32px;justify-content:center;align-items:center;padding:20px}
+.phone{width:375px;height:min(780px,calc(100vh - 90px));flex:none;border-radius:46px;border:10px solid #262B3B;background:#12151E;position:relative;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 40px 80px rgba(0,0,0,.5)}
+.sb{flex:none;height:34px;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font-size:13px;color:#DBDDF0;font-weight:600}
+.sb .icons{display:flex;gap:6px;align-items:center}
+.sb .icons i{display:block;width:16px;height:9px;border:1.5px solid #8C94AE;border-radius:2px}
+.screen{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.scr{flex:1;display:flex;flex-direction:column;padding:12px 20px 20px}
+.nav{flex:none;display:flex;justify-content:space-around;border-top:1px solid #262B3B;background:#161A25;padding:8px 0 12px}
+.nav button{background:none;border:0;color:#8C94AE;font:600 11px Onest,sans-serif;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:4px 10px}
+.nav button.on{color:#CB9CF8}
+.nav svg{width:22px;height:22px}
+.p-h1{font-size:24px;font-weight:700;line-height:1.25;margin:8px 0 6px;letter-spacing:-.01em}
+.p-h2{font-size:18px;font-weight:700;line-height:1.3;margin:0 0 4px}
+.p-sub{font-size:14px;color:#8C94AE;line-height:1.5;margin:0}
+.p-label{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.p-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:999px;padding:15px 20px;background:#8652FF;color:#fff;font:700 17px Onest,sans-serif;cursor:pointer;transition:opacity .15s,transform .1s}
+.p-btn:active{transform:scale(.98)}
+.p-btn[disabled]{opacity:.35;cursor:not-allowed}
+.p-btn.sec{background:#262B3B;color:#fff}
+.p-btn.line{background:transparent;border:1.5px solid #2E3446;color:#DBDDF0}
+.p-btn.danger{background:transparent;border:1.5px solid #E26F68;color:#E26F68}
+.p-link{background:none;border:0;color:#CB9CF8;font:600 14px Onest,sans-serif;cursor:pointer;padding:8px}
+.opt{width:100%;text-align:center;padding:14px;border-radius:14px;background:#1B2420;border:1.5px solid #253029;color:#fff;font:500 18px Onest,sans-serif;cursor:pointer;margin-bottom:10px}
+.opt.goal{text-align:left;display:flex;gap:12px;align-items:center;font-size:16px;background:#1B1F2B;border-color:#2E3446}
+.opt.sel,.opt:hover{background:#A57BFA;border-color:#A57BFA}
+.opt.skip{background:transparent;border:1.5px dashed #2E3446;color:#DBDDF0;font-size:15px}
+.nova{display:flex;justify-content:center;margin:6px 0 10px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;background:#262B3B;color:#DBDDF0}
+.chip.mint{background:rgba(60,219,158,.15);color:#3CDB9E}
+.chip.yellow{background:rgba(255,199,0,.15);color:#FFC700}
+.chip.purple{background:rgba(134,82,255,.2);color:#CB9CF8}
+.chip.red{background:rgba(226,111,104,.15);color:#E26F68}
+.progress{display:flex;gap:6px;margin:4px 0 14px}
+.progress i{flex:1;height:6px;border-radius:99px;background:#262B3B}
+.progress i.on{background:#3CDB9E}
+.prompt-card{background:#262B3B;border-radius:20px;padding:18px;text-align:center;margin-bottom:14px}
+.prompt-card .lbl{font-size:12px;color:#8C94AE;letter-spacing:.06em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.prompt-card .txt{font-size:21px;font-weight:600;line-height:1.35;color:#fff}
+.mic{width:84px;height:84px;border-radius:50%;border:0;background:#8652FF;color:#fff;display:grid;place-items:center;margin:6px auto 4px;cursor:pointer;box-shadow:0 0 0 8px rgba(134,82,255,.18)}
+.mic.live{animation:pulse 1.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(134,82,255,.6)}100%{box-shadow:0 0 0 22px rgba(134,82,255,0)}}
+.wave{display:flex;gap:4px;justify-content:center;align-items:center;height:36px;margin:6px 0}
+.wave i{width:4px;border-radius:4px;background:#40B9F8;animation:wv 1s infinite ease-in-out}
+@keyframes wv{0%,100%{height:6px}50%{height:30px}}
+.alts{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.alt{background:#1B1F2B;border:1.5px solid #2E3446;border-radius:14px;padding:12px 14px;color:#DBDDF0;font:500 15px Onest,sans-serif;text-align:left;cursor:pointer}
+.alt:hover{border-color:#8652FF}
+.typed{display:flex;gap:8px;margin-top:8px}
+.typed input{flex:1;min-width:0;background:#1B1F2B;border:1.5px solid #2E3446;border-radius:12px;padding:11px 12px;color:#fff;font:15px Onest,sans-serif}
+.typed button{background:#262B3B;border:0;color:#fff;border-radius:12px;padding:0 14px;font:600 14px Onest,sans-serif;cursor:pointer}
+.fb{background:#1B1F2B;border-radius:24px 24px 18px 18px;padding:18px;margin-top:4px;border:1px solid #262B3B}
+.fb-title{display:flex;align-items:center;justify-content:center;gap:8px;color:#FF9904;font-weight:700;font-size:18px;margin-bottom:12px}
+.fb-title.ok{color:#3CDB9E}
+.fb-box{background:#262B3B;border-radius:14px;padding:12px;text-align:center;font-weight:600;font-size:16px;margin-bottom:10px}
+.fb-line{display:flex;gap:10px;align-items:flex-start;padding:9px 2px;font-size:16px;line-height:1.4;border-bottom:1px solid #262B3B}
+.fb-line:last-of-type{border-bottom:0}
+.fb-line .x{color:#E26F68;font-weight:800}
+.fb-line .v{color:#3CDB9E;font-weight:800}
+.hl-o{color:#FF9904}
+.hl-m{color:#3CDB9E;text-decoration:underline;text-underline-offset:3px}
+.fb-meta{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:10px;font-size:12px;color:#8C94AE;flex-wrap:wrap}
+.pending{display:flex;gap:8px;align-items:center;font-size:12px;color:#FFC700}
+.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.2);border-top-color:currentColor;border-radius:50%;animation:sp .8s linear infinite;flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+.pcard{background:#1B1F2B;border:1px solid #262B3B;border-radius:16px;padding:16px;margin-bottom:12px}
+.list-check{list-style:none;padding:0;margin:8px 0 0;font-size:14px;color:#DBDDF0}
+.list-check li{display:flex;gap:8px;padding:4px 0}
+.list-check li::before{content:"✓";color:#3CDB9E;font-weight:800}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.plan{background:#1B1F2B;border:2px solid #2E3446;border-radius:16px;padding:12px;cursor:pointer;text-align:left;color:#fff;font-family:Onest,sans-serif;position:relative}
+.plan.sel{border-color:#8652FF;background:rgba(134,82,255,.12)}
+.plan .pn{font-size:13px;color:#8C94AE;font-weight:600}
+.plan .pp{font-size:20px;font-weight:800;margin:2px 0}
+.plan .pe{font-size:12px;color:#DBDDF0}
+.plan .badge{position:absolute;top:-9px;right:10px;background:#3CDB9E;color:#12151E;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px}
+.tl{position:relative;padding-left:26px;margin:4px 0 4px}
+.tl-row{position:relative;padding:0 0 14px}
+.tl-row::before{content:"";position:absolute;left:-20px;top:6px;width:12px;height:12px;border-radius:50%;background:#12151E;border:3px solid #8652FF}
+.tl-row::after{content:"";position:absolute;left:-15px;top:20px;bottom:0;width:2px;background:#2E3446}
+.tl-row:last-child::after{display:none}
+.tl-row.bell::before{border-color:#3CDB9E}
+.tl-row.pay::before{border-color:#FFC700}
+.tl-row b{display:block;font-size:14px}
+.tl-row span{font-size:13px;color:#8C94AE;line-height:1.45;display:block}
+.explain{background:#1B1F2B;border:1px solid #262B3B;border-radius:14px;margin-bottom:12px}
+.explain summary{padding:12px 14px;cursor:pointer;font-size:14px;font-weight:600;color:#CB9CF8;list-style:none}
+.explain summary::-webkit-details-marker{display:none}
+.explain p{padding:0 14px 12px;font-size:13px;color:#DBDDF0;line-height:1.55;margin:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.switch{width:44px;height:26px;border-radius:99px;background:#2E3446;border:0;position:relative;cursor:pointer;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s}
+.switch.on{background:#3CDB9E}
+.switch.on::after{left:21px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#DBDDF0;line-height:1.5;margin:4px 0 14px;cursor:pointer;background:rgba(255,199,0,.07);border:1px solid rgba(255,199,0,.35);padding:12px;border-radius:12px}
+.consent input{width:20px;height:20px;accent-color:#8652FF;flex:none;margin-top:1px}
+.fine{font-size:12px;color:#8C94AE;text-align:center;margin:10px 0 0;line-height:1.5}
+.sheet-bg{position:absolute;inset:0;background:rgba(5,6,10,.6);z-index:5;display:flex;align-items:flex-end}
+.sheet{width:100%;background:#1B1F2B;border-radius:24px 24px 0 0;padding:10px 20px 22px;max-height:88%;overflow-y:auto}
+.sheet .grab{width:40px;height:4px;border-radius:9px;background:#2E3446;margin:0 auto 14px}
+.notif{position:absolute;top:40px;left:10px;right:10px;z-index:8;background:#F5F6FA;color:#12151E;border-radius:18px;padding:12px 14px;box-shadow:0 12px 30px rgba(0,0,0,.45);cursor:pointer;animation:drop .35s ease-out}
+@keyframes drop{from{transform:translateY(-120%)}to{transform:none}}
+.notif .app{display:flex;gap:6px;align-items:center;font-size:11px;color:#5A6075;font-weight:600;margin-bottom:4px}
+.notif .app i{width:16px;height:16px;border-radius:4px;background:#25A35A;display:inline-block}
+.notif b{font-size:14px;display:block;margin-bottom:2px}
+.notif p{font-size:13px;margin:0;line-height:1.4;color:#2B3040}
+.notif .x{position:absolute;top:8px;right:10px;background:none;border:0;font-size:18px;color:#5A6075;cursor:pointer}
+.ptoast{position:absolute;left:16px;right:16px;bottom:80px;z-index:9;background:#3CDB9E;color:#12151E;font-weight:700;font-size:14px;border-radius:14px;padding:12px 14px;text-align:center;animation:drop .3s ease-out}
+.trialbar{display:flex;justify-content:space-between;align-items:center;gap:8px;background:rgba(255,199,0,.1);border:1px solid rgba(255,199,0,.35);border-radius:14px;padding:10px 12px;font-size:13px;color:#FFE38A;margin-bottom:14px;cursor:pointer;text-align:left;width:100%;font-family:Onest,sans-serif}
+.trialbar b{color:#fff}
+.weekcard{background:#1B1F2B;border:1.5px solid #2E3446;border-radius:16px;padding:14px 16px;margin-bottom:8px}
+.weekcard .p-label{color:#F37DC3}
+.path{display:flex;flex-direction:column;gap:18px;padding:10px 0 4px}
+.node{display:flex;align-items:center;gap:14px}
+.node:nth-child(2){padding-left:46px}.node:nth-child(3){padding-left:20px}.node:nth-child(4){padding-left:56px}
+.node .ring{width:62px;height:62px;border-radius:50%;border:4px solid #8652FF;background:#262B3B;display:grid;place-items:center;font-size:24px;position:relative;flex:none}
+.node .ring.done::after{content:"✓";position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:#8652FF;color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center}
+.node .ring.now{border-color:#3CDB9E}
+.node .ring.lock{border-color:#2E3446;opacity:.6}
+.node span{font-size:14px;color:#DBDDF0;line-height:1.35}
+.node .start{position:absolute;top:-22px;left:50%;transform:translateX(-50%);background:#12151E;color:#3CDB9E;border:1.5px solid #3CDB9E;border-radius:6px;font-size:10px;font-weight:800;padding:1px 6px;letter-spacing:.06em}
+.talkcard{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,#8652FF,#6A35E8);border-radius:18px;padding:14px;margin-bottom:14px;cursor:pointer;border:0;color:#fff;text-align:left;width:100%;font-family:Onest,sans-serif}
+.hist{background:#1B1F2B;border:1px solid #262B3B;border-radius:14px;padding:12px 14px;margin-bottom:10px;font-size:14px}
+.hist .t{font-size:12px;color:#8C94AE;display:flex;justify-content:space-between;margin-bottom:6px}
+.step-line{display:flex;gap:10px;align-items:center;padding:10px 0;font-size:14px;color:#DBDDF0;border-bottom:1px solid #262B3B}
+.step-line:last-child{border-bottom:0}
+.ok{color:#3CDB9E;font-weight:800}
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.stat3 div{background:#1B1F2B;border-radius:14px;padding:12px 8px;text-align:center}
+.stat3 b{display:block;font-size:22px}
+.stat3 span{font-size:11px;color:#8C94AE}
+
+/* demo panel */
+.panel{width:360px;max-height:calc(100vh - 90px);overflow-y:auto;background:#12151E;border:1px solid #262B3B;border-radius:20px;padding:18px;color:#DBDDF0;font-size:14px}
+.panel h3{color:#fff;font-size:16px;margin:0 0 4px}
+.ptabs{display:flex;gap:6px;margin-bottom:14px;background:#1B1F2B;padding:4px;border-radius:12px}
+.ptabs button{flex:1;background:none;border:0;color:#8C94AE;padding:8px;border-radius:9px;font:600 13px Onest,sans-serif;cursor:pointer}
+.ptabs button.on{background:#262B3B;color:#fff}
+.guide{counter-reset:g;list-style:none;padding:0;margin:8px 0 16px}
+.guide li{counter-increment:g;position:relative;padding:6px 0 6px 32px;line-height:1.45}
+.guide li::before{content:counter(g);position:absolute;left:0;top:6px;width:22px;height:22px;border-radius:50%;background:#262B3B;color:#CB9CF8;font-weight:700;font-size:12px;display:grid;place-items:center}
+.guide li.done::before{content:"✓";background:#3CDB9E;color:#12151E}
+.guide small{display:block;color:#8C94AE;font-size:12px}
+.ctl{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #262B3B}
+.ctl small{display:block;color:#8C94AE;font-size:12px}
+.pbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.pbtns button{background:#262B3B;color:#fff;border:0;border-radius:10px;padding:10px;font:600 13px Onest,sans-serif;cursor:pointer}
+.pbtns button.wide{grid-column:1 / -1;background:transparent;border:1px solid #2E3446;color:#8C94AE}
+.kpi{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:10px 0;border-top:1px solid #262B3B}
+.kpi b{color:#fff;font-size:13px}
+.kpi .tg{font-weight:800;font-size:13px;text-align:right}
+.kpi small{grid-column:1 / -1;color:#8C94AE;font-size:12px}
+.log{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;line-height:1.5;background:#0A0C12;border-radius:10px;padding:10px;max-height:240px;overflow-y:auto;color:#A9B0C7}
+.log div{padding:2px 0;border-bottom:1px dashed #1B1F2B}
+.log .e{color:#CB9CF8}
+.panel-note{font-size:12px;color:#8C94AE;margin-top:10px;line-height:1.5}
+.panel-toggle{display:none}
+@media (max-width:900px){
+  .proto-body{padding:0;gap:0}
+  .phone{width:100%;height:100%;border:0;border-radius:0;box-shadow:none}
+  .panel{position:absolute;left:0;right:0;bottom:0;width:auto;max-height:70vh;border-radius:20px 20px 0 0;z-index:30;transform:translateY(105%);transition:transform .25s}
+  .panel.show{transform:none}
+  .panel-toggle{display:flex;position:absolute;right:12px;bottom:84px;z-index:31;background:#FFC700;color:#12151E;border:0;border-radius:999px;padding:10px 14px;font:700 13px Onest,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.4);cursor:pointer}
+  .proto-body{position:relative}
+  .panel.show ~ .panel-toggle{bottom:calc(70vh + 10px)}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="who">Hardik Jain <span>· Product case study</span></div>
+  <div class="disclaimer-mini">Independent concept. Not affiliated with Supernova.</div>
+  <button class="btn btn-primary" data-open-proto>Try prototype</button>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Supernova AI · Case study · November 2026</div>
+  <h1>Speak first.<br><em>Pay clearly.</em></h1>
+  <p class="lede" style="margin-top:20px">Supernova's most common 1★ review isn't about the English teaching. It's about the ₹9 trial that quietly becomes a ₹299 debit, a paywall that shows up before any value, and an app that breaks for people who just paid. I studied 7,961 Play Store reviews, traced all three to <b>one broken first week</b>, and designed and built a new flow to fix it.</p>
+  <div class="ctas">
+    <button class="btn btn-primary" data-open-proto>Try the working prototype →</button>
+    <a class="btn btn-ghost" href="#context">Read the case study ↓</a>
+  </div>
+  <div class="meta">By Hardik Jain, Product Manager (funnels, payments, GenAI and evals, voice AI) · Data scraped 17 Nov 2026 · Every number links to its source</div>
+
+  <div class="stats">
+    <div class="stat"><b>33%</b><span>of detailed 1–3★ reviews are about a <b>surprise auto-debit</b> after the ₹5/₹9 trial. 91% of them are 1★.</span></div>
+    <div class="stat"><b>34%</b><span>complain about a <b>paywall before value</b>: premium pop-ups, a close button that waits, "the ad said free".</span></div>
+    <div class="stat"><b>15%→25%</b><span>share mentioning <b>bugs and hangs</b>, before vs the last 90 days. The fastest-growing complaint.</span></div>
+    <div class="stat"><b>₹11L/mo</b><span>value of every 1% of revenue kept from refunds and cancellations, at about $16M ARR.</span></div>
+  </div>
+</div></header>
+
+<section id="context"><div class="wrap">
+  <div class="eyebrow">01 · Context</div>
+  <h2>Supernova is winning. That's why this matters now.</h2>
+  <div class="grid2">
+    <div>
+      <p class="lede" style="font-size:18px">Supernova has built one of India's biggest consumer AI products: a voice tutor that teaches English in the learner's own language. Growth is real, paid subscribers tripled after the move to Sarvam's voice stack, and a new $15–20M round is reportedly in progress.</p>
+      <p>The unhappy users are a minority. Only <b>2.5% of 324K ratings are 1★</b>. But that minority is concentrated at the moment revenue is actually earned: <b>the first debit</b>. It is also very public, with the words "fraud" and "scam" on the store page that every ad click lands on.</p>
+      <div class="callout">The APM job description asks for someone to "run hundreds of A/B tests across prompts, models, <b>product flows</b>". This case study is one of those flows, the one that touches revenue first.</div>
+    </div>
+    <div class="card">
+      <ul class="facts">
+        <li><span>Installs (Google Play)</span><b>10M+ (~26.5M)</b></li>
+        <li><span>Rating</span><b>4.76★ · 324K ratings</b></li>
+        <li><span>ARR (company claim / press)</span><b>~$17M / ~$15M</b></li>
+        <li><span>Users (company claim)</span><b>2 crore+</b></li>
+        <li><span>Paid subscribers after Sarvam</span><b>3×</b></li>
+        <li><span>Voice latency</span><b>550–650 ms</b></li>
+        <li><span>Fundraise (reported Sep 2026)</span><b>$15–20M</b></li>
+        <li><span>Android billing</span><b>Razorpay · UPI AutoPay</b></li>
+      </ul>
+      <p class="src" style="margin:12px 0 0">Sources: <a href="https://play.google.com/store/apps/details?id=live.gosupernova.app" target="_blank" rel="noopener">Play listing</a> · <a href="https://wellfound.com/jobs/4824094-associate-product-manager" target="_blank" rel="noopener">APM JD</a> · <a href="https://www.sarvam.ai/stories/supernova" target="_blank" rel="noopener">Sarvam case study</a> · <a href="https://news.ventureintelligence.com/private-equity/spoken-english-app-supernova-to-raise-$20-m-from-vertex-ventures,-verlinvest" target="_blank" rel="noopener">Venture Intelligence</a></p>
+    </div>
+  </div>
+</div></section>
+
+<section id="evidence"><div class="wrap">
+  <div class="eyebrow">02 · Evidence</div>
+  <h2>What 7,961 reviews say</h2>
+  <p class="lede" style="font-size:18px">I scraped every 1–3★ English review the Play Store API returns, plus the latest 4,000 reviews of any rating, then tagged the 1,888 detailed negatives (8+ words) into themes using English and Hinglish keyword rules checked by hand. A review can belong to more than one theme.</p>
+
+  <div class="card chart-card">
+    <div class="chart-title">Share of detailed 1–3★ reviews, by theme</div>
+    <div class="chart-sub">n = 1,888 · Purple = the three problems this flow solves</div>
+    <div class="hbars" id="themeBars"></div>
+    <details class="table"><summary>View as table</summary><div class="tablewrap" style="margin-top:10px"><table id="themeTable"><thead><tr><th>Theme</th><th class="num">Reviews</th><th class="num">Share</th><th class="num">Before → last 90 days</th><th class="num">% 1★</th></tr></thead><tbody></tbody></table></div></details>
+  </div>
+
+  <div class="card chart-card">
+    <div class="chart-title">Surprise-debit complaints per month</div>
+    <div class="chart-sub">Detailed 1–3★ reviews about billing or auto-debit · Aug 2025 – Nov 2026 (Nov is partial). The jump lines up with the ₹5/₹9 trial appearing in reviews.</div>
+    <div class="cols" id="monthCols"></div>
+    <div class="xlabels" id="monthX"></div>
+    <details class="table"><summary>View as table</summary><div class="tablewrap" style="margin-top:10px"><table id="monthTable"><thead><tr><th>Month</th><th class="num">Billing complaints</th><th class="num">Share of month's detailed negatives</th></tr></thead><tbody></tbody></table></div></details>
+  </div>
+
+  <div class="quotes">
+    <div class="quote"><span class="tag t1">Surprise debit</span><q>after subscribing for ₹9, the auto-pay option was turned on, and ₹1,299 was auto-debited</q><div class="qm"><span>1★ · Feb 2026 · 40 👍</span><a href="https://play.google.com/store/apps/details?id=live.gosupernova.app&reviewId=54a52cb3-443f-4b59-bef9-1005f3f6e034" target="_blank" rel="noopener">Source</a></div></div>
+    <div class="quote"><span class="tag t1">Surprise debit</span><q>There was no clear warning about the auto-renewal or the actual subscription cost after the trial.</q><div class="qm"><span>1★ · Apr 2026 · 23 👍</span><a href="https://play.google.com/store/apps/details?id=live.gosupernova.app&reviewId=f94a9714-2bc9-48cd-a70a-a3700ead2c0d" target="_blank" rel="noopener">Source</a></div></div>
+    <div class="quote"><span class="tag t2">Paywall first</span><q>keeps begging for money instead of showing the worth first</q><div class="qm"><span>1★ · Feb 2026</span><a href="https://play.google.com/store/apps/details?id=live.gosupernova.app&reviewId=fab228ee-f97e-409b-b130-ac8e829019e2" target="_blank" rel="noopener">Source</a></div></div>
+    <div class="quote"><span class="tag t2">Paywall first</span><q>they have intentionally added a delay to make sure users can't click close the pop up</q><div class="qm"><span>1★ · May 2026 · 13 👍</span><a href="https://play.google.com/store/apps/details?id=live.gosupernova.app&reviewId=e97ba9a9-c762-4d37-af3c-826fdb2ae909" target="_blank" rel="noopener">Source</a></div></div>
+    <div class="quote"><span class="tag t3">Paid, then broken</span><q>'Analyzing Audio' takes up to 15 minutes</q><div class="qm"><span>1★ · Sep 2026 · 77 👍</span><a href="https://play.google.com/store/apps/details?id=live.gosupernova.app&reviewId=06922ebb-a23f-4733-aa1e-75ed81decd7b" target="_blank" rel="noopener">Source</a></div></div>
+    <div class="quote"><span class="tag t3">Paid, then broken</span><q>the audio broke the moment I paid</q><div class="qm"><span>1★ · Apr 2026 · 18 👍</span><a href="https://play.google.com/store/apps/details?id=live.gosupernova.app&reviewId=812548f4-8ddc-405f-9131-cd5da390d408" target="_blank" rel="noopener">Source</a></div></div>
+  </div>
+  <p class="src" style="margin-top:16px">Caveats: Play Store only (Apple's review feed returned nothing for this app, and Reddit has almost no threads). 1★ coverage starts in Aug 2025 because of API limits. Shares are keyword-based and approximate. Full data: <code>signals.csv</code>, <code>problem_clusters.md</code>.</p>
+</div></section>
+
+<section id="diagnosis"><div class="wrap">
+  <div class="eyebrow">03 · Diagnosis</div>
+  <h2>Three problems, one broken first week</h2>
+  <p class="lede" style="font-size:18px">These aren't three separate bugs. They happen one after another to the same learner, and each one makes the next feel worse.</p>
+  <div class="journey">
+    <div class="jstep"><div class="dot"></div><div class="when">Day 0</div><h4>Sees an ad</h4><p>"₹9", "free classes", "a robot that talks to you".</p></div>
+    <div class="jstep bad"><div class="dot"></div><div class="when">Day 0</div><h4>Paywall before value</h4><p>Paywall after lesson 1; pop-up close button on a delay.</p><span class="tag t2">Problem 2</span></div>
+    <div class="jstep bad"><div class="dot"></div><div class="when">Day 0</div><h4>Pays ₹9 "to test"</h4><p>Unknowingly approves a UPI AutoPay mandate up to ₹299–₹1,799.</p><span class="tag t1">Problem 1</span></div>
+    <div class="jstep bad"><div class="dot"></div><div class="when">Day 3</div><h4>₹299 disappears</h4><p>No reminder they notice. No obvious cancel button in the app.</p><span class="tag t1">Problem 1</span></div>
+    <div class="jstep bad"><div class="dot"></div><div class="when">Day 3+</div><h4>The app breaks</h4><p>"Analyzing audio" hangs, chats vanish, Premium doesn't unlock.</p><span class="tag t3">Problem 3</span></div>
+    <div class="jstep bad"><div class="dot"></div><div class="when">Day 4</div><h4>1★ + refund + mandate revoked</h4><p>Gets a canned reply. Revenue, rating and trust are all lost.</p></div>
+  </div>
+  <div class="callout" style="margin-top:36px"><b>The root cause.</b> Supernova replies to almost every one of these reviews saying the ₹299 renewal is <i>"shown at checkout and in your UPI app."</i> That's true, and it's exactly the problem: <b>a disclosure the user doesn't absorb is not an expectation</b>. Price, value and control reach the user in the wrong order: price before value, the debit before a reminder, and payment before reliability.</div>
+</div></section>
+
+<section id="priority"><div class="wrap">
+  <div class="eyebrow">04 · Prioritisation</div>
+  <h2>Why these three, and why together</h2>
+  <p class="lede" style="font-size:18px">Score = (User pain × Business impact) + Strategic fit + Feasibility + Prototype-ability. Each is scored 1–5, so the maximum is 40.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Problem</th><th class="num">Share</th><th class="num">Pain</th><th class="num">Impact</th><th class="num">Fit</th><th class="num">Feasible</th><th class="num">Prototype</th><th class="num">Score</th></tr></thead>
+      <tbody>
+        <tr class="pick"><td><b>1 · Surprise auto-debit after ₹5/₹9 trial</b></td><td class="num">32.8%</td><td class="num">5</td><td class="num">5</td><td class="num">4</td><td class="num">5</td><td class="num">5</td><td class="num"><b>39</b></td></tr>
+        <tr class="pick"><td><b>2 · Paywall before value / premium nagging</b></td><td class="num">34.1%</td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">5</td><td class="num"><b>29</b></td></tr>
+        <tr class="pick"><td><b>3 · Reliability for paying users</b></td><td class="num">17.7% ↑</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">2</td><td class="num"><b>24</b></td></tr>
+        <tr><td>Repetitive / too basic content</td><td class="num">5.3%</td><td class="num">3</td><td class="num">4</td><td class="num">5</td><td class="num">3</td><td class="num">4</td><td class="num">24</td></tr>
+        <tr><td>AI marks correct answers wrong</td><td class="num">4.7%</td><td class="num">3</td><td class="num">3</td><td class="num">5</td><td class="num">3</td><td class="num">4</td><td class="num">21</td></tr>
+        <tr><td>Support and refunds don't resolve</td><td class="num">8.4%</td><td class="num">3</td><td class="num">3</td><td class="num">2</td><td class="num">4</td><td class="num">3</td><td class="num">18</td></tr>
+        <tr><td>Privacy / account deletion</td><td class="num">3.3%</td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">5</td><td class="num">4</td><td class="num">15</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid2" style="margin-top:24px">
+    <div class="card"><h3>Why #1 leads</h3><p style="margin:8px 0 0;font-size:15px;color:var(--ink-2)">It's the only theme that is large, still rising and almost entirely 1★, and it's tied directly to <b>revenue already earned</b> and to <b>regulatory risk</b>. India's CCPA dark-pattern guidelines name "subscription trap" and "drip pricing", and RBI's 2026 e-mandate rules require a pre-debit notice. All of this matters just as investors start due diligence.</p></div>
+    <div class="card"><h3>Why fix all three in one flow</h3><p style="margin:8px 0 0;font-size:15px;color:var(--ink-2)">Fix only the debit and users still hit a paywall before they've seen any value. Fix the paywall and the debit, and paying users still churn when the app hangs. All three are steps of <b>one funnel</b>, and the metric that matters, paid retention into month 2, only moves if every step holds.</p></div>
+  </div>
+</div></section>
+
+<section id="strategy"><div class="wrap">
+  <div class="eyebrow">05 · Strategy</div>
+  <h2>Three principles for the first week</h2>
+  <div class="principles">
+    <div class="card principle"><div class="n">PRINCIPLE 1</div><h3>Value before price</h3><p>The learner speaks with Nova and gets a real correction before seeing any price. Premium is offered once, at the moment of value, with a "Not now" that works instantly.</p></div>
+    <div class="card principle"><div class="n">PRINCIPLE 2</div><h3>No surprise money</h3><p>The price, date and amount are shown as a timeline, confirmed actively, and repeated in Supernova's own reminder 24 hours before the debit. Cancel, pause or get a refund in one tap.</p></div>
+    <div class="card principle"><div class="n">PRINCIPLE 3</div><h3>Never block a learner</h3><p>Feedback appears instantly and the detailed analysis follows in the background. History is saved on the phone first. Payment unlocks itself, with a fallback and a ticket ID.</p></div>
+  </div>
+  <div class="notdoing">
+    <div class="card"><h3>What I'm deliberately not changing</h3><ul style="margin:10px 0 0;padding-left:18px;font-size:15px;color:var(--ink-2)">
+      <li><b>The ₹9 trial and UPI AutoPay.</b> They're the growth engine; the problem is the surprise, not the model.</li>
+      <li><b>Prices.</b> ₹299/month stays. A quarterly plan is added as a save offer.</li>
+      <li><b>Curriculum and speech-model accuracy.</b> Real problems (5% each), but next quarter's work.</li></ul></div>
+    <div class="card"><h3>The trade-off I'm betting on</h3><p style="font-size:15px;color:var(--ink-2);margin:10px 0 0">A visible reminder and one-tap cancel <b>will lower the day-3 conversion rate somewhat</b>. I'm betting it raises <b>paid retention into month 2 per trial start</b>, which is revenue that survives refunds, disputes and revoked mandates, while removing regulatory risk. The A/B test settles it. If trial starts fall more than 5%, we roll back.</p></div>
+  </div>
+</div></section>
+
+<section id="solution"><div class="wrap">
+  <div class="eyebrow">06 · The new flow</div>
+  <h2>"Speak first, pay clearly" in five steps</h2>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><div><div class="tags"><span class="tag t2">Problem 2</span></div><h3>60-second First Win</h3><p style="font-size:15px;color:var(--ink-2);margin:0">2-tap onboarding: language (now with <b>"English only"</b>) and goal. Then the learner speaks 3 sentences with Nova, gets instant feedback and sees their level. No paywall first. One free Nova conversation every day, forever.</p></div><div class="ba"><div class="before"><b>Today</b>Paywall after lesson 1; native language can't be skipped.</div><div class="after"><b>New</b>A real correction within 60 seconds of install, before any price.</div></div></div>
+    <div class="step"><div class="num">2</div><div><div class="tags"><span class="tag t1">Problem 1</span><span class="tag t2">Problem 2</span></div><h3>One honest offer</h3><p style="font-size:15px;color:var(--ink-2);margin:0">Shown once, after the first win. A trial timeline (Today ₹9 → Day 2 reminder → Day 3 ₹299), a plain Hinglish explanation of UPI AutoPay, and an active "I understand" checkbox before paying.</p></div><div class="ba"><div class="before"><b>Today</b>"₹9" is the headline; ₹299 appears in the fine print.</div><div class="after"><b>New</b>The date and the amount are the headline. "Not now" works instantly.</div></div></div>
+    <div class="step"><div class="num">3</div><div><div class="tags"><span class="tag t1">Problem 1</span></div><h3>No-surprise reminder</h3><p style="font-size:15px;color:var(--ink-2);margin:0">24 hours before the debit: a WhatsApp and in-app message with the amount, the date and what they practised during the trial, plus one-tap Continue / Switch / Cancel.</p></div><div class="ba"><div class="before"><b>Today</b>Only the bank's pre-debit SMS, which users don't notice.</div><div class="after"><b>New</b>Supernova's own reminder, in the learner's language, with buttons.</div></div></div>
+    <div class="step"><div class="num">4</div><div><div class="tags"><span class="tag t1">Problem 1</span></div><h3>Profile → My plan</h3><p style="font-size:15px;color:var(--ink-2);margin:0">Next debit date and amount, <b>one-tap cancel</b> (the refund policy already promises "cancel from your profile page"), pause or switch, and a self-serve <b>"Charged by mistake?"</b> refund for unused debits, which is clause 2 of their own policy made instant.</p></div><div class="ba"><div class="before"><b>Today</b>"No profile section or subscription management option."</div><div class="after"><b>New</b>Cancel in 1 tap; instant refund if Premium wasn't used after the debit.</div></div></div>
+    <div class="step"><div class="num">5</div><div><div class="tags"><span class="tag t3">Problem 3</span></div><h3>Never block a learner</h3><p style="font-size:15px;color:var(--ink-2);margin:0">An instant quick check plus a background detailed report with an ETA. Chats saved on the phone first, with a "Saved ✓" badge. After payment, the app shows "Payment received ✓", unlocks itself, offers "Restore access" and creates a ticket automatically.</p></div><div class="ba"><div class="before"><b>Today</b>"Analyzing audio" for minutes; chats erased; locked after paying.</div><div class="after"><b>New</b>First feedback p95 &lt; 3s, unlock p95 &lt; 10s, zero history loss.</div></div></div>
+  </div>
+</div></section>
+
+<section id="metrics"><div class="wrap">
+  <div class="eyebrow">07 · How we'd prove it</div>
+  <h2>Experiment design and sizing</h2>
+  <div class="grid2">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Metric</th><th>Role</th><th class="num">Target</th></tr></thead>
+        <tbody>
+          <tr><td><b>Paid retention into month 2, per trial start</b></td><td>Primary</td><td class="num">+10% rel.</td></tr>
+          <tr><td>Refund requests per 100 debits</td><td>Supporting</td><td class="num">−30%</td></tr>
+          <tr><td>Mandates revoked ≤ 7 days after debit</td><td>Supporting</td><td class="num">−25%</td></tr>
+          <tr><td>Billing share of new 1★ reviews</td><td>Supporting</td><td class="num">−50%</td></tr>
+          <tr><td>First-win completion (day 0)</td><td>Supporting</td><td class="num">≥ 70%</td></tr>
+          <tr><td>Trial starts per install</td><td>Guardrail</td><td class="num">≥ −5%</td></tr>
+          <tr><td>Time to first feedback (p95)</td><td>SLO</td><td class="num">&lt; 3 s</td></tr>
+          <tr><td>Payment → unlock (p95)</td><td>SLO</td><td class="num">&lt; 10 s</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card"><h3>A/B test</h3><p style="font-size:15px;color:var(--ink-2);margin:8px 0 0">50/50 split of new Android installs from paid ads, run for <b>4 weeks</b>. That's enough to see every user reach their first debit and the start of month 2. Variant: the full flow. Control: today's flow. Analysis is per trial start, so pushing more trials can't game the result.</p></div>
+      <div class="card" style="margin-top:16px"><h3>Rough sizing</h3><p style="font-size:15px;color:var(--ink-2);margin:8px 0 0">ARR of about $15–17M is roughly ₹125–140 Cr a year, or <b>about ₹11 Cr a month</b>. Every <b>1%</b> of monthly revenue kept from refunds, disputes and early mandate cancellation is worth <b>about ₹11L a month (about ₹1.3 Cr a year)</b>. That excludes the lower support cost, the store rating, and paid-acquisition conversion on a store page that currently says "scam". <span class="src">I can't see Supernova's actual refund or cancellation rates; the test measures them.</span></p></div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="card"><div class="eyebrow">Weeks 1–2</div><h3>Trust layer</h3><ul><li>My plan with one-tap cancel and pause</li><li>T-24h WhatsApp and in-app reminder</li><li>Self-serve "charged by mistake" refund</li></ul></div>
+    <div class="card"><div class="eyebrow">Weeks 2–5</div><h3>Reliability SLOs</h3><ul><li>Quick check + background report queue</li><li>Save history on the phone first</li><li>Unlock reconciliation every 5 min</li></ul></div>
+    <div class="card"><div class="eyebrow">Weeks 3–6</div><h3>Value-first funnel</h3><ul><li>60-second First Win and "English only"</li><li>Single honest offer and trial timeline</li><li>A/B readout and rollout decision</li></ul></div>
+  </div>
+  <div class="tablewrap" style="margin-top:24px">
+    <table>
+      <thead><tr><th>Risk</th><th>How we reduce it</th></tr></thead>
+      <tbody>
+        <tr><td>Fewer first debits (cancelling becomes easy)</td><td>Measure surviving revenue, not debits; offer pause and a quarterly plan; the reminder shows what they achieved in the trial</td></tr>
+        <tr><td>The free daily chat cannibalises Premium</td><td>One ~5-minute chat a day; Premium = unlimited chats, role-plays, study plan</td></tr>
+        <tr><td>Self-serve refunds get abused</td><td>Only for unused debits, ≤ 15 days old, one per user. This matches the existing refund policy</td></tr>
+        <tr><td>WhatsApp template costs or rejection</td><td>Utility template category; fall back to push and SMS</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div></section>
+
+<section id="prototype"><div class="wrap">
+  <div class="cta-band">
+    <div>
+      <div class="eyebrow" style="color:#CB9CF8">08 · Working prototype</div>
+      <h2>See the new first week, working</h2>
+      <p>Built in Supernova's own design language: dark navy, the purple pill CTA, Onest type, Nova's feedback cards. Speak into your mic (Chrome) or tap an answer; feedback is generated live from what you said.</p>
+      <ol>
+        <li>Complete the <b>60-second First Win</b> with Nova</li>
+        <li>Read the <b>honest offer</b>, tick consent, start the ₹9 trial</li>
+        <li>Jump to <b>Day 2</b> for the reminder, then <b>cancel in 1 tap</b> or jump to Day 3 and try <b>"Charged by mistake?"</b></li>
+      </ol>
+      <button class="btn btn-primary" data-open-proto>Open the prototype →</button>
+    </div>
+    <div class="mini-phone">
+      <div id="miniNova"></div>
+      <p>Hi, I'm Nova.<br>Let's speak first.</p>
+      <span style="font-size:12px;color:#8C94AE">Concept by Hardik Jain</span>
+    </div>
+  </div>
+</div></section>
+
+<section id="about"><div class="wrap">
+  <div class="eyebrow">09 · Why me</div>
+  <h2>I've fixed this exact funnel before</h2>
+  <div class="proof">
+    <div class="card"><b>71% → 86%</b><span>payment success at PrepLadder (Unacademy), about ₹45L a month, as sole PM for 200K+ active learners</span></div>
+    <div class="card"><b>34% → 19%</b><span>OTP drop-off; signups up 18%; D30 retention 38% vs 24%</span></div>
+    <div class="card"><b>14% → 3%</b><span>hallucinations cut with a 300-question eval set (Study Abroad Buddy, 0 → 10K+ users, later acquired)</span></div>
+    <div class="card"><b>82%</b><span>of 6K daily voice doubts resolved without a human (PrepAI)</span></div>
+    <div class="card"><b>48%</b><span>reply rate on a WhatsApp bot; about 1,100 bookings a quarter</span></div>
+    <div class="card"><b>~70 hrs/wk</b><span>analyst time saved by Ask Data (text-to-SQL), answering 80–90% of leadership questions in under 2 minutes</span></div>
+  </div>
+  <p style="margin-top:24px"><a href="https://claude.ai/artifact/Shbu4PL9zMbgajfePKbhne" target="_blank" rel="noopener">Portfolio</a> · <a href="https://www.linkedin.com/in/hardik-jain-8b0887189/" target="_blank" rel="noopener">LinkedIn</a></p>
+</div></section>
+
+<section id="sources"><div class="wrap">
+  <div class="eyebrow">Sources</div>
+  <h2 style="font-size:24px">Evidence and references</h2>
+  <ul class="sources">
+    <li><a href="https://play.google.com/store/apps/details?id=live.gosupernova.app" target="_blank" rel="noopener">Google Play listing and reviews</a> (scraped 17 Nov 2026)</li>
+    <li><a href="https://wellfound.com/jobs/4824094-associate-product-manager" target="_blank" rel="noopener">Supernova APM job description (Wellfound)</a></li>
+    <li><a href="https://www.sarvam.ai/stories/supernova" target="_blank" rel="noopener">Sarvam: How Supernova built a voice-first English tutor</a></li>
+    <li><a href="https://news.ventureintelligence.com/private-equity/spoken-english-app-supernova-to-raise-$20-m-from-vertex-ventures,-verlinvest" target="_blank" rel="noopener">Venture Intelligence: $15–20M raise (Sep 2026)</a></li>
+    <li><a href="https://www.getsupernova.ai/refund-policy" target="_blank" rel="noopener">Supernova refund policy</a></li>
+    <li><a href="https://swadeshiapps.com/blog/supernova-ai-review" target="_blank" rel="noopener">Swadeshi Apps review (pricing)</a></li>
+    <li><a href="https://www.jsalaw.com/newsletters-and-updates/ccpa-issues-guidelines-for-prevention-and-regulation-of-dark-patterns-2023/" target="_blank" rel="noopener">CCPA dark-pattern guidelines 2023 (JSA Law)</a></li>
+    <li><a href="https://www.businesstoday.in/personal-finance/news/story/rbi-auto-debit-rules-explained-what-new-changes-mean-for-your-upi-and-card-payments-528507-2026-05-02" target="_blank" rel="noopener">RBI e-mandate rules 2026 (Business Today)</a></li>
+    <li><a href="https://www.business-admin.speakx.com/refund-policy" target="_blank" rel="noopener">SpeakX refund policy</a> · <a href="https://stimuler.tech/refund-cancellation-policy" target="_blank" rel="noopener">Stimuler refund policy</a></li>
+    <li><a href="https://unstar.app/blog/is-speak-elsa-talkpal-loora-learna-ai-english-apps-legit-2026" target="_blank" rel="noopener">Unstar: AI English app complaint patterns</a></li>
+    <li><a href="https://growth-dives.kit.com/posts/growth-dives-what-do-duolingo-blinkist-strava-get-right-about-paywalls" target="_blank" rel="noopener">Growth Dives: Duolingo / Blinkist paywalls</a></li>
+  </ul>
+</div></section>
+
+<footer><div class="wrap">Concept case study and prototype by Hardik Jain. Independent work, not affiliated with or endorsed by Supernova or L8 Cones Interactive Pvt Ltd. Review excerpts are short quotes from public Google Play reviews. No real payments or personal data are collected anywhere on this page.</div></footer>
+
+<div class="tip" id="tip"></div>
+
+<!-- ================= PROTOTYPE ================= -->
+<div class="proto" id="proto" role="dialog" aria-modal="true" aria-label="Concept prototype">
+  <div class="proto-banner"><span>Concept prototype by Hardik Jain, not affiliated with Supernova. No real payments.</span><button id="protoClose">Close ✕</button></div>
+  <div class="proto-body">
+    <div class="phone">
+      <div class="sb"><span id="clock">9:41</span><span class="icons"><span style="font-size:11px">5G</span><i></i></span></div>
+      <div class="screen" id="screen"></div>
+      <div id="navSlot"></div>
+      <div id="overlaySlot"></div>
+    </div>
+    <aside class="panel" id="panel"></aside>
+    <button class="panel-toggle" id="panelToggle">Demo controls</button>
+  </div>
+</div>
+
+<script>
+/* ---------- Case study charts ---------- */
+const THEMES=[
+ ["Paywall first / premium nagging",643,34.1,35.1,31.6,86,true],
+ ["Surprise auto-debit after ₹5/₹9 trial",619,32.8,31.9,35.0,91,true],
+ ["Bugs, hangs, paid but locked",335,17.7,14.8,25.0,67,true],
+ ["Feature removed / missing",161,8.5,9.4,6.4,66,false],
+ ["Support and refunds unresolved",158,8.4,6.8,12.3,83,false],
+ ["Repetitive / too basic",101,5.3,5.7,4.6,69,false],
+ ["AI speech accuracy",88,4.7,3.9,6.6,69,false],
+ ["Privacy / account deletion",63,3.3,3.6,2.6,79,false],
+ ["Ad doesn't match the app",46,2.4,2.3,2.8,89,false]];
+const MONTHS=[["Aug 25",0,12],["Sep 25",3,18],["Oct 25",2,27],["Nov 25",1,11],["Dec 25",0,12],["Jan 26",29,106],["Feb 26",51,142],["Mar 26",62,172],["Apr 26",57,167],["May 26",45,166],["Jun 26",61,174],["Jul 26",72,195],["Aug 26",80,195],["Sep 26",82,236],["Oct 26",50,164],["Nov 26",21,52]];
+(function charts(){
+  const hb=document.getElementById('themeBars'), tb=document.querySelector('#themeTable tbody');
+  THEMES.forEach(([n,c,s,b,r,o,sel])=>{
+    hb.insertAdjacentHTML('beforeend',`<div class="hrow"><div class="lab ${sel?'sel':''}">${n}</div><div class="htrack" data-tip="<b>${n}</b><br>${c} reviews · ${s}% of detailed negatives<br>Before ${b}% → last 90 days ${r}% · ${o}% are 1★"><div class="hbar ${sel?'sel':''}" style="width:${s/36*100*0.86}%"></div><span class="hval">${s}%</span></div></div>`);
+    tb.insertAdjacentHTML('beforeend',`<tr><td>${n}</td><td class="num">${c}</td><td class="num">${s}%</td><td class="num">${b}% → ${r}%</td><td class="num">${o}%</td></tr>`);
+  });
+  const mc=document.getElementById('monthCols'), mx=document.getElementById('monthX'), mt=document.querySelector('#monthTable tbody');
+  [0,40,80].forEach(v=>mc.insertAdjacentHTML('beforeend',`<div class="gl" style="bottom:${v/90*100}%"><span>${v}</span></div>`));
+  MONTHS.forEach(([m,c,t],i)=>{
+    const partial=i===MONTHS.length-1, share=Math.round(c/t*100);
+    mc.insertAdjacentHTML('beforeend',`<div class="col ${partial?'partial':''}" data-tip="<b>${m.replace(' ',' 20')}</b>${partial?' (to 16 Nov)':''}<br>${c} billing complaints<br>${share}% of that month's detailed negatives"><i style="height:${Math.max(c/90*100,1)}%"></i></div>`);
+    mx.insertAdjacentHTML('beforeend',`<span>${m}</span>`);
+    mt.insertAdjacentHTML('beforeend',`<tr><td>${m.replace(' ',' 20')}${partial?' (partial)':''}</td><td class="num">${c}</td><td class="num">${share}%</td></tr>`);
+  });
+  const tip=document.getElementById('tip');
+  document.addEventListener('mousemove',e=>{
+    const t=e.target.closest('[data-tip]');
+    if(!t){tip.style.opacity=0;return}
+    tip.innerHTML=t.dataset.tip; tip.style.opacity=1;
+    const x=Math.min(e.clientX+14,innerWidth-tip.offsetWidth-8), y=Math.max(8,e.clientY-tip.offsetHeight-12);
+    tip.style.left=x+'px'; tip.style.top=y+'px';
+  });
+})();
+
+/* ---------- Prototype ---------- */
+const NOVA=(s=96)=>`<svg width="${s}" height="${s}" viewBox="0 0 96 96" aria-label="Nova"><defs><linearGradient id="ng${s}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A57BFA"/><stop offset="1" stop-color="#F37DC3"/></linearGradient></defs><circle cx="48" cy="48" r="46" fill="#262B3B" stroke="#8652FF" stroke-width="4"/><circle cx="48" cy="50" r="30" fill="url(#ng${s})"/><circle cx="38" cy="47" r="7.5" fill="none" stroke="#12151E" stroke-width="2.5"/><circle cx="58" cy="47" r="7.5" fill="none" stroke="#12151E" stroke-width="2.5"/><path d="M45.5 47h5" stroke="#12151E" stroke-width="2.5"/><circle cx="38" cy="47" r="2.6" fill="#12151E"/><circle cx="58" cy="47" r="2.6" fill="#12151E"/><path d="M39 60c5 5 13 5 18 0" stroke="#12151E" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M71 20l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z" fill="#FFC700"/></svg>`;
+document.getElementById('miniNova').innerHTML=NOVA(110);
+
+const today=new Date();
+const addD=n=>{const d=new Date(today);d.setDate(d.getDate()+n);return d};
+const fmt=d=>d.toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+const D2=fmt(addD(2)), D3=fmt(addD(3)), D33=fmt(addD(33)), D30=fmt(addD(30));
+const PLANS={monthly:{name:'Monthly',price:299,label:'₹299/month',eff:'₹299/mo',after:'every month'},quarterly:{name:'3 months',price:699,label:'₹699 / 3 months',eff:'₹233/mo',after:'every 3 months'}};
+const LANGS=[['hi','हिन्दी'],['ta','தமிழ்'],['te','తెలుగు'],['ml','മലയാളം'],['kn','ಕನ್ನಡ'],['bn','বাংলা']];
+const GOALS=[['interview','💼','Crack job interviews'],['office','🏢','Speak confidently at work'],['bpo','🎧','Handle customer calls'],['daily','☕','Daily conversations']];
+const BASE=[
+ {hi:'मैंने आज से English सीखना start किया',en:'I started learning English today',alts:['I started learn English today','I started learning English today']},
+ {hi:'मैं नई team join करने के लिए excited हूँ',en:'I am excited to join the new team',alts:['I am excited to join in the new team','I am excited to join the new team']}];
+const GOALSENT={
+ interview:{hi:'मैं एक hardworking इंसान हूँ',en:'I am a hardworking person',alts:['I am hardworking person','I am a hardworking person']},
+ office:{hi:'मैं यह report कल तक भेज दूँगा',en:'I will send this report by tomorrow',alts:['I will send this report till tomorrow','I will send this report by tomorrow']},
+ bpo:{hi:'मैं आपकी कैसे मदद कर सकता हूँ?',en:'How can I help you',alts:['How I can help you','How can I help you']},
+ daily:{hi:'मुझे चाय पीना पसंद है',en:'I like to drink tea',alts:['I like drink tea','I like to drink tea']}};
+const TALK=[
+ {hi:'कल मेरा interview है',en:'I have an interview tomorrow',alts:['I have interview tomorrow','I have an interview tomorrow']},
+ {hi:'मुझे थोड़ा डर लग रहा है',en:'I am feeling a little nervous',alts:['I am feeling little nervous','I am feeling a little nervous']}];
+
+let S;
+function fresh(){
+  S={screen:'splash',lang:null,goal:null,set:'first',idx:0,attempts:[],cur:null,analyzing:false,listening:false,
+     slow:false,delay:false,day:0,tab:'controls',sheet:null,notif:null,ptoast:null,
+     trial:{status:'none',plan:'monthly',remind:true,consent:false,debited:false,refunded:false,used:false},
+     unlock:null,events:[],guide:{win:false,trial:false,remind:false,control:false}};
+}
+fresh();
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+function log(ev,detail=''){
+  const t=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  S.events.push({t,ev,detail}); renderPanel();
+}
+function sentences(){return S.set==='first'?[BASE[0],BASE[1],GOALSENT[S.goal||'interview']]:TALK}
+
+/* evaluator: word-level LCS diff between what the learner said and the target */
+function tok(s){return s.replace(/[’]/g,"'").replace(/[^A-Za-z' ]/g,' ').split(/\s+/).filter(Boolean)}
+function diff(a,b){
+  const n=a.length,m=b.length,L=Array.from({length:n+1},()=>Array(m+1).fill(0)),eq=(x,y)=>x.toLowerCase()===y.toLowerCase();
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)L[i][j]=eq(a[i],b[j])?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+  const ops=[];let i=0,j=0;
+  while(i<n&&j<m){if(eq(a[i],b[j])){ops.push(['=',b[j]]);i++;j++}else if(L[i+1][j]>=L[i][j+1]){ops.push(['+',a[i]]);i++}else{ops.push(['-',b[j]]);j++}}
+  while(i<n)ops.push(['+',a[i++]]);while(j<m)ops.push(['-',b[j++]]);
+  return ops;
+}
+function evaluate(said,target){
+  const t=tok(target), ops=diff(tok(said),t);
+  const extra=ops.filter(o=>o[0]==='+').map(o=>o[1]), miss=ops.filter(o=>o[0]==='-').map(o=>o[1]);
+  const match=ops.filter(o=>o[0]==='=').length;
+  const score=Math.max(0,match/Math.max(t.length,1)-extra.length*0.08);
+  let title;
+  if(!extra.length&&!miss.length) title='Perfect! That was spot on';
+  else if(match/Math.max(t.length,1)<0.4) title="Let's try that again: say the full sentence";
+  else if(extra.length&&!miss.length) title=`The word “${extra[0]}” is not needed`;
+  else if(miss.length&&!extra.length) title=`You missed “${miss[0]}”`;
+  else{
+    const s=ops.findIndex(o=>o[0]!=='=');let e=s;while(e<ops.length&&ops[e][0]!=='=')e++;
+    const run=ops.slice(s,e),want=run.filter(o=>o[0]==='-').map(o=>o[1]).join(' '),got=run.filter(o=>o[0]==='+').map(o=>o[1]).join(' ');
+    title=want&&got?`Say “${want}”, not “${got}”`:want?`You missed “${want}”`:`The word “${got}” is not needed`;
+  }
+  return {said,target,ops,extra,miss,score,title,perfect:!extra.length&&!miss.length};
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function saidLine(r){return r.ops.filter(o=>o[0]!=='-').map(o=>o[0]==='+'?`<span class="hl-o">${esc(o[1])}</span>`:esc(o[1])).join(' ')}
+function rightLine(r){return r.ops.filter(o=>o[0]!=='+').map(o=>o[0]==='-'?`<span class="hl-m">${esc(o[1])}</span>`:esc(o[1])).join(' ')}
+
+/* ---------- screens ---------- */
+const V={};
+V.splash=()=>`<div class="scr" style="justify-content:center;text-align:center">
+  <div class="nova">${NOVA(150)}</div>
+  <div class="p-h1">Hi, I'm Nova. Your 24/7 AI English teacher!</div>
+  <p class="p-sub" style="margin-bottom:28px">Let's speak first. You'll get your first correction in 60 seconds. No payment needed.</p>
+  <button class="p-btn" data-a="go:lang">Talk to Nova</button>
+  <p class="fine">Free, always: 1 Nova conversation every day</p></div>`;
+V.lang=()=>`<div class="scr"><div class="nova">${NOVA(96)}</div>
+  <div class="p-h2" style="text-align:center;margin-bottom:14px">What is your native language?</div>
+  ${LANGS.map(([k,l])=>`<button class="opt ${S.lang===k?'sel':''}" data-a="lang:${k}">${l}</button>`).join('')}
+  <button class="opt skip" data-a="lang:en">I'll learn in English only →</button></div>`;
+V.goal=()=>`<div class="scr"><div class="nova">${NOVA(96)}</div>
+  <div class="p-h2" style="text-align:center">Why do you want to speak English?</div>
+  <p class="p-sub" style="text-align:center;margin-bottom:14px">Nova will pick your first sentences for this.</p>
+  ${GOALS.map(([k,e,l])=>`<button class="opt goal" data-a="goal:${k}"><span style="font-size:22px">${e}</span>${l}</button>`).join('')}</div>`;
+V.practice=()=>{
+  const list=sentences(), s=list[S.idx], first=S.set==='first';
+  const label=S.lang==='en'?'Say this sentence':'इसे ENGLISH में बोलो';
+  const prompt=S.lang==='en'?s.en:s.hi;
+  let body='';
+  if(S.analyzing){
+    body=`<div style="text-align:center;padding:20px 0"><div class="wave">${'<i></i>'.repeat(9).replace(/<i><\/i>/g,(m,i)=>`<i style="animation-delay:${(i%9)*0.08}s"></i>`)}</div><p class="p-sub">Nova is checking…</p></div>`;
+  } else if(S.cur){
+    const r=S.cur;
+    body=`<div class="fb"><div class="fb-title ${r.perfect?'ok':''}">${r.perfect?'✓':'❗'} ${r.perfect?'Great job':'Feedback'}</div>
+      <div class="fb-box">${esc(r.title)}</div>
+      ${r.perfect?`<div class="fb-line"><span class="v">✓</span><span>${esc(r.target)}</span></div>`:
+      `<div class="fb-line"><span class="x">✕</span><span>${saidLine(r)}</span></div><div class="fb-line"><span class="v">✓</span><span>${rightLine(r)}</span></div>`}
+      <div class="fb-meta"><span class="chip mint">Saved ✓</span>
+      ${r.reportPending?`<span class="pending"><span class="spin"></span>Detailed report in ~6s, keep going</span>`:`<span>Pronunciation ${r.pron}/100 · ${r.ms}ms</span>`}</div></div>
+      <button class="p-btn" style="margin-top:14px" data-a="next">${S.idx<list.length-1?'Next sentence':first?'See my result':'Finish practice'}</button>`;
+  } else {
+    body=`<button class="mic ${S.listening?'live':''}" data-a="listen" aria-label="Speak">${S.listening?'<span class="wave" style="height:24px">'+'<i style="width:3px"></i>'.repeat(4)+'</span>':'<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>'}</button>
+      <p class="p-sub" style="text-align:center">${S.listening?'Listening… speak now':(SR?'Tap and speak in English':'Mic not available in this browser')}</p>
+      <div class="alts"><div class="p-sub" style="font-size:12px;margin-top:6px">Can't speak right now? Tap what you'd say:</div>
+      ${s.alts.map((a,i)=>`<button class="alt" data-a="say:${i}">“${esc(a)}”</button>`).join('')}
+      <form class="typed" data-form="typed"><input name="t" placeholder="…or type your answer" autocomplete="off"><button>Check</button></form></div>`;
+  }
+  return `<div class="scr">
+    <div class="row"><span class="p-label" style="color:#3CDB9E">${first?'First win · 60 sec':'Talk to Nova · Free today'}</span><span class="chip">${S.idx+1}/${list.length}</span></div>
+    <div class="progress">${list.map((_,i)=>`<i class="${i<S.idx||(i===S.idx&&S.cur)?'on':''}"></i>`).join('')}</div>
+    ${S.cur||S.analyzing?'':`<div class="nova">${NOVA(84)}</div>`}
+    <div class="prompt-card"><div class="lbl">${label}</div><div class="txt">${esc(prompt)}</div>${S.lang!=='en'&&S.lang!=='hi'?'<div class="p-sub" style="font-size:11px;margin-top:6px">Demo shows Hindi prompts for all languages</div>':''}</div>
+    ${body}</div>`;
+};
+V.result=()=>{
+  const at=S.attempts.filter(a=>a.set==='first'), words=at.reduce((n,a)=>n+tok(a.r.said).length,0);
+  const fixes=at.filter(a=>!a.r.perfect).length, avg=at.reduce((n,a)=>n+a.r.score,0)/Math.max(at.length,1);
+  const lvl=avg>=.95?'Intermediate (B1)':avg>=.75?'Beginner+ (A2)':'Beginner (A1)';
+  return `<div class="scr" style="text-align:center"><div class="nova">${NOVA(110)}</div>
+    <span class="chip mint" style="align-self:center">FIRST WIN UNLOCKED</span>
+    <div class="p-h1">You just spoke English with Nova!</div>
+    <p class="p-sub">That took about a minute. Imagine 20 minutes a day.</p>
+    <div class="stat3"><div><b>${words}</b><span>words spoken</span></div><div><b>${fixes}</b><span>mistakes fixed</span></div><div><b>${at.length}/3</b><span>sentences</span></div></div>
+    <div class="pcard" style="text-align:left"><span class="p-label" style="color:#F37DC3">Your level</span><div class="p-h2" style="margin-top:2px">${lvl}</div><p class="p-sub">Week 1 plan: ${({interview:'Interview basics: introduce yourself clearly',office:'Office talk: updates, emails and meetings',bpo:'Customer calls: greet, help, close',daily:'Everyday talk: food, travel and plans'})[S.goal||'interview']}</p></div>
+    <div style="margin-top:auto"><button class="p-btn" data-a="go:offer">See my plan</button></div></div>`;
+};
+V.offer=()=>{
+  const p=PLANS[S.trial.plan];
+  return `<div class="scr">
+    <div class="row"><span class="p-label" style="color:#CB9CF8">Supernova Premium</span><button class="p-link" data-a="notnow">Not now</button></div>
+    <div class="p-h1" style="margin-top:0">Keep talking to Nova every day</div>
+    <div class="pcard" style="margin-top:8px"><div class="row"><b style="font-size:14px">Free, always</b><span class="chip mint">No payment</span></div><ul class="list-check"><li>1 Nova conversation every day</li></ul>
+    <div style="height:1px;background:#262B3B;margin:12px 0"></div><b style="font-size:14px">Premium adds</b><ul class="list-check"><li>Unlimited conversations with Nova</li><li>All role-plays: interviews, office, customer calls</li><li>Your personal study plan and progress</li></ul></div>
+    <div class="plans">
+      ${Object.entries(PLANS).map(([k,v])=>`<button class="plan ${S.trial.plan===k?'sel':''}" data-a="plan:${k}">${k==='quarterly'?'<span class="badge">SAVE 22%</span>':''}<div class="pn">${v.name}</div><div class="pp">${v.eff}</div><div class="pe">${k==='quarterly'?'₹699 billed every 3 months':'Billed monthly'}</div></button>`).join('')}
+    </div>
+    <div class="pcard"><b style="font-size:14px">How your trial works</b><div class="tl" style="margin-top:12px">
+      <div class="tl-row"><b>Today · ₹9</b><span>Full Premium for 3 days</span></div>
+      <div class="tl-row bell"><b>${D2} · We remind you</b><span>On WhatsApp and in the app, 1 day before any charge</span></div>
+      <div class="tl-row pay"><b>${D3} · ₹${p.price} via UPI AutoPay</b><span>Then ${p.after}. Cancel anytime in 1 tap from Profile → My plan.</span></div></div></div>
+    <details class="explain"><summary>UPI AutoPay kya hai? ▾</summary><p>₹9 dene par aapke UPI app mein AutoPay set hota hai. Matlab ${D3} ko ₹${p.price} apne aap katega, phir ${p.after==='every month'?'har mahine':'har 3 mahine'}. Aap kabhi bhi Supernova app (Profile → My plan) ya apne UPI app se 1 tap mein band kar sakte hain. Hum charge se 1 din pehle WhatsApp par yaad dilayenge.</p></details>
+    <div class="row pcard" style="padding:12px 14px"><span style="font-size:14px">Remind me on WhatsApp before ${D3}</span><button class="switch ${S.trial.remind?'on':''}" data-a="remind" aria-label="WhatsApp reminder"></button></div>
+    <label class="consent"><input type="checkbox" data-a="consent" ${S.trial.consent?'checked':''}><span>I understand <b>₹${p.price} will be auto-debited on ${D3}</b> unless I cancel before then. I can cancel in 1 tap.</span></label>
+    <button class="p-btn" data-a="pay" ${S.trial.consent?'':'disabled'}>Start 3-day trial for ₹9</button>
+    <p class="fine">Cancel before ${D3} and you pay nothing more. Charged by mistake? Get an instant refund from My plan if you haven't used Premium since.</p></div>`;
+};
+V.unlocking=()=>{
+  const u=S.unlock;
+  const rows=[['Payment received','₹9 via UPI',u.step>=1],['AutoPay set up',`Up to ₹${PLANS[S.trial.plan].price} from ${D3}`,u.step>=2],['Unlocking Premium',u.step>=3?'Ready':(u.attempt>1?`Still syncing, retrying automatically (attempt ${u.attempt})`:'Activating…'),u.step>=3]];
+  return `<div class="scr" style="text-align:center"><div class="nova" style="margin-top:20px">${NOVA(110)}</div>
+    <div class="p-h1">${u.step>=3?"You're Premium for 3 days!":'Almost there…'}</div>
+    <div class="pcard" style="text-align:left;margin-top:12px">${rows.map(([a,b,d])=>`<div class="step-line">${d?'<span class="ok">✓</span>':'<span class="spin" style="color:#CB9CF8"></span>'}<div><b style="color:#fff">${a}</b><div class="p-sub" style="font-size:12px">${b}</div></div></div>`).join('')}</div>
+    ${u.attempt>1&&u.step<3?`<div class="pcard" style="text-align:left;border-color:rgba(255,199,0,.4)"><p class="p-sub" style="color:#FFE38A;margin-bottom:10px">Your money is safe. If this takes more than 60 seconds we'll fix it automatically. Ticket <b>SN-${u.ticket}</b> has been created and we'll update you on WhatsApp.</p><button class="p-btn sec" data-a="restore">Restore access now</button></div>`:''}
+    ${u.step>=3?`<div class="pcard" style="text-align:left"><div class="tl"><div class="tl-row bell"><b>${D2}</b><span>Reminder on WhatsApp${S.trial.remind?'':' (off) and'} in the app</span></div><div class="tl-row pay"><b>${D3}</b><span>₹${PLANS[S.trial.plan].price} via UPI AutoPay, unless you cancel</span></div></div></div><button class="p-btn" style="margin-top:auto" data-a="go:home">Start learning</button>`:''}</div>`;
+};
+function trialBar(){
+  const t=S.trial;
+  if(t.status==='trial') return `<button class="trialbar" data-a="go:plan"><span>Trial · Day ${Math.min(S.day+1,3)} of 3<br><b>₹${PLANS[t.plan].price} on ${D3}</b></span><span>Manage ›</span></button>`;
+  if(t.status==='active') return `<button class="trialbar" data-a="go:plan" style="background:rgba(60,219,158,.08);border-color:rgba(60,219,158,.35);color:#B6F3DA"><span>Premium active<br><b>Next: ₹${PLANS[t.plan].price} on ${t.plan==='monthly'?D33:fmt(addD(93))}</b></span><span>Manage ›</span></button>`;
+  if(t.status==='cancelled') return `<button class="trialbar" data-a="go:plan" style="background:#1B1F2B;border-color:#2E3446;color:#DBDDF0"><span>AutoPay off · no more charges<br><b>${t.refunded?'Refund on its way':'Premium until '+(t.debited?D33:D3)}</b></span><span>View ›</span></button>`;
+  if(t.status==='paused') return `<button class="trialbar" data-a="go:plan" style="background:#1B1F2B;border-color:#2E3446;color:#DBDDF0"><span>Plan paused for 1 month<br><b>No charge until ${fmt(addD(33))}</b></span><span>View ›</span></button>`;
+  return `<div class="trialbar" style="cursor:default;background:#1B1F2B;border-color:#2E3446;color:#DBDDF0"><span>Free plan<br><b>1 free Nova conversation today</b></span><button class="p-link" data-a="go:offer" style="padding:0">See Premium</button></div>`;
+}
+V.home=()=>`<div class="scr">
+  <div class="row" style="margin-bottom:12px"><div><div class="p-sub" style="font-size:13px">Good evening 👋</div><div class="p-h2" style="margin:0">Let's practise today</div></div><span class="chip yellow">🔥 1 day</span></div>
+  ${trialBar()}
+  <button class="talkcard" data-a="talk">${NOVA(52)}<div><b style="font-size:16px">Talk to Nova</b><div style="font-size:13px;opacity:.85">2-minute interview warm-up${S.trial.status==='none'?' · free today':''}</div></div></button>
+  <div class="weekcard"><span class="p-label">Week 1</span><div style="font-weight:600;margin-top:2px">${({interview:'Introduce yourself clearly',office:'Speak up in meetings',bpo:'Greet and help customers',daily:'Talk about your day'})[S.goal||'interview']}</div></div>
+  <div class="path">
+    <div class="node"><div class="ring done">🗣️</div><span>First win with Nova</span></div>
+    <div class="node"><div class="ring now"><span class="start">START</span>🧠</div><span><b>Describe past events</b></span></div>
+    <div class="node"><div class="ring ${S.trial.status==='none'?'lock':''}">💬</div><span>Role-play: ${S.goal==='bpo'?'customer call':'HR round'}${S.trial.status==='none'?' 🔒':''}</span></div>
+    <div class="node"><div class="ring lock">⭐</div><span>Weekly speaking test</span></div>
+  </div></div>`;
+V.history=()=>`<div class="scr"><div class="p-h2">Your conversations</div>
+  <p class="p-sub" style="margin-bottom:12px"><span class="chip mint">Saved on this phone ✓ · Synced</span><br><span style="display:block;margin-top:8px">History is saved on your phone first, so it's never lost, even offline.</span></p>
+  ${S.attempts.slice().reverse().map(a=>`<div class="hist"><div class="t"><span>${a.time} · ${a.set==='first'?'First win':'Talk to Nova'}</span><span class="${a.r.perfect?'ok':''}" style="${a.r.perfect?'':'color:#FF9904'}">${a.r.perfect?'Perfect':'1 fix'}</span></div><div>${a.r.perfect?esc(a.r.target):saidLine(a.r)}</div>${a.r.perfect?'':`<div style="color:#3CDB9E;margin-top:4px">✓ ${esc(a.r.target)}</div>`}</div>`).join('')||'<p class="p-sub">No conversations yet.</p>'}</div>`;
+V.profile=()=>`<div class="scr"><div class="row" style="justify-content:flex-start;gap:12px;margin-bottom:16px">${NOVA(56)}<div><div class="p-h2" style="margin:0">Learner</div><div class="p-sub">${(LANGS.find(l=>l[0]===S.lang)||['','English only'])[1]} · ${(GOALS.find(g=>g[0]===S.goal)||['','','Interview'])[2]}</div></div></div>
+  <button class="pcard row" style="width:100%;cursor:pointer;color:#fff;font-family:Onest,sans-serif;text-align:left" data-a="go:plan"><span><b>My plan</b><br><span class="p-sub" style="font-size:13px">${({none:'Free plan',trial:`Trial · ₹${PLANS[S.trial.plan].price} on ${D3}`,active:'Premium active',cancelled:'AutoPay off',paused:'Paused'})[S.trial.status]}</span></span><span>›</span></button>
+  <div class="pcard row"><span><b>Language</b><br><span class="p-sub" style="font-size:13px">Change any time</span></span><span>›</span></div>
+  <div class="pcard row"><span><b>Help</b><br><span class="p-sub" style="font-size:13px">Chat with us · replies within 2 hours</span></span><span>›</span></div>
+  <div class="pcard row"><span><b>Delete account</b><br><span class="p-sub" style="font-size:13px">Remove your data, right here in the app</span></span><span>›</span></div></div>`;
+V.plan=()=>{
+  const t=S.trial,p=PLANS[t.plan];
+  let status,lines='',actions='';
+  if(t.status==='none'){status=`<span class="chip">Free plan</span>`;lines=`<p class="p-sub">You're on the free plan: 1 Nova conversation every day. No AutoPay is set up, so nothing will be charged.</p>`;actions=`<button class="p-btn" data-a="go:offer">See Premium</button>`;}
+  else{
+    status={trial:'<span class="chip yellow">Trial · Day '+Math.min(S.day+1,3)+' of 3</span>',active:'<span class="chip mint">Premium active</span>',cancelled:'<span class="chip red">AutoPay cancelled</span>',paused:'<span class="chip purple">Paused</span>'}[t.status];
+    const next=t.status==='trial'?`₹${p.price} on ${D3}`:t.status==='active'?`₹${p.price} on ${t.plan==='monthly'?D33:fmt(addD(93))}`:t.status==='paused'?`Nothing until ${fmt(addD(33))}`:'No more charges';
+    lines=`<div class="step-line"><span style="flex:1">Plan</span><b style="color:#fff">${p.name} · ${p.label}</b></div>
+      <div class="step-line"><span style="flex:1">Next charge</span><b style="color:#fff">${next}</b></div>
+      <div class="step-line"><span style="flex:1">Paid via</span><b style="color:#fff">UPI AutoPay</b></div>
+      <div class="step-line"><span style="flex:1">Payments</span><b style="color:#fff">₹9 (${fmt(today)})${t.debited?` · ₹${p.price} (${D3})`:''}${t.refunded?' · refunded':''}</b></div>`;
+    if(t.status==='trial'||t.status==='active') actions=`<button class="p-btn line" data-a="sheet:switch">Switch plan</button><div style="height:10px"></div><button class="p-btn danger" data-a="sheet:cancel">Cancel AutoPay</button>`;
+    if(t.status==='paused') actions=`<button class="p-btn" data-a="resume">Resume Premium</button>`;
+    if(t.debited&&!t.refunded) actions+=`<div class="pcard" style="margin-top:14px;border-color:rgba(255,199,0,.35)"><b style="font-size:14px">Charged by mistake?</b><p class="p-sub" style="font-size:13px;margin:4px 0 10px">${t.used?"You've practised since the debit, so a person will review this within 48 hours.":`You haven't used Premium since the ₹${p.price} debit on ${D3}, so you qualify for an instant refund.`}</p><button class="p-btn sec" data-a="refund">${t.used?'Request a review':`Refund ₹${p.price} now`}</button></div>`;
+  }
+  return `<div class="scr"><button class="p-link" style="align-self:flex-start;padding:0 0 8px" data-a="go:profile">‹ Profile</button>
+    <div class="row"><div class="p-h1" style="margin:0">My plan</div>${status}</div>
+    <div class="pcard" style="margin-top:14px">${lines}</div>${actions}
+    <p class="fine">You can also stop AutoPay from your UPI app. We always remind you 1 day before any charge.</p></div>`;
+};
+
+/* sheets */
+const SH={};
+SH.cancel=()=>`<div class="p-h2">Before you go…</div><p class="p-sub" style="margin-bottom:14px">You spoke <b style="color:#fff">${S.attempts.reduce((n,a)=>n+tok(a.r.said).length,0)} words</b> with Nova and fixed <b style="color:#fff">${S.attempts.filter(a=>!a.r.perfect).length} mistakes</b>. Would one of these help?</p>
+  <button class="p-btn sec" data-a="pause">Pause for 1 month (no charge)</button><div style="height:10px"></div>
+  ${S.trial.plan==='monthly'?'<button class="p-btn sec" data-a="plan2:quarterly">Switch to ₹233/month (3-month plan)</button><div style="height:10px"></div>':''}
+  <button class="p-btn danger" data-a="cancel">Cancel AutoPay</button>
+  <p class="fine">Cancelling stops all future charges. ${S.trial.status==='trial'?`Premium stays until ${D3}; you won't be charged ₹${PLANS[S.trial.plan].price}.`:`Premium stays until ${D33}.`}</p>`;
+SH.switch=()=>`<div class="p-h2">Switch plan</div><p class="p-sub" style="margin-bottom:14px">Your new price applies from your next charge date.</p>
+  ${Object.entries(PLANS).map(([k,v])=>`<button class="plan ${S.trial.plan===k?'sel':''}" style="width:100%;margin-bottom:10px" data-a="plan2:${k}"><div class="pn">${v.name}</div><div class="pp">${v.eff}</div><div class="pe">${v.label}</div></button>`).join('')}`;
+SH.remind=()=>`<span class="chip yellow">Reminder · charge tomorrow</span><div class="p-h2" style="margin-top:10px">Kal ₹${PLANS[S.trial.plan].price} katega</div>
+  <p class="p-sub" style="margin-bottom:12px">Your trial ends on ${D3}. ₹${PLANS[S.trial.plan].price} will be auto-debited via UPI AutoPay${S.trial.plan==='monthly'?', then every month':''}.</p>
+  <div class="stat3"><div><b>${S.attempts.reduce((n,a)=>n+tok(a.r.said).length,0)}</b><span>words spoken</span></div><div><b>${S.attempts.filter(a=>!a.r.perfect).length}</b><span>mistakes fixed</span></div><div><b>${S.attempts.length}</b><span>sentences</span></div></div>
+  <button class="p-btn" data-a="keep">Continue Premium</button><div style="height:10px"></div>
+  <button class="p-btn line" data-a="sheet:switch">Switch to a cheaper plan</button><div style="height:10px"></div>
+  <button class="p-btn danger" data-a="cancel">Cancel, don't charge me</button>`;
+SH.pay=()=>`<div class="p-h2">Pay ₹9 with UPI</div><p class="p-sub" style="margin-bottom:12px">Demo payment sheet. No real money moves.</p>
+  <div class="pcard"><div class="step-line"><span style="flex:1">Pay now</span><b style="color:#fff">₹9</b></div><div class="step-line"><span style="flex:1">AutoPay from ${D3}</span><b style="color:#fff">₹${PLANS[S.trial.plan].price} ${S.trial.plan==='monthly'?'/ month':'/ 3 months'}</b></div><div class="step-line"><span style="flex:1">Reminder</span><b style="color:#fff">${D2}</b></div></div>
+  <button class="p-btn" data-a="approve">Approve in UPI app (demo)</button>`;
+
+function navHTML(){
+  if(!['home','history','profile','plan'].includes(S.screen)) return '';
+  const it=[['home','Learn','M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z'],['talk','Talk','M4 5h16v11H8l-4 4z'],['history','History','M12 7v5l3 2M21 12a9 9 0 1 1-3-6.7M21 3v6h-6'],['profile','Profile','M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm-8 9a8 8 0 0 1 16 0']];
+  const on=S.screen==='plan'?'profile':S.screen;
+  return `<nav class="nav">${it.map(([k,l,d])=>`<button class="${on===k?'on':''}" data-a="${k==='talk'?'talk':'go:'+k}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>${l}</button>`).join('')}</nav>`;
+}
+function render(){
+  document.getElementById('screen').innerHTML=V[S.screen]();
+  document.getElementById('navSlot').innerHTML=navHTML();
+  let o='';
+  if(S.sheet) o+=`<div class="sheet-bg" data-a="closesheet"><div class="sheet" data-stop><div class="grab"></div>${SH[S.sheet]()}</div></div>`;
+  if(S.notif) o+=`<div class="notif" data-a="notif"><button class="x" data-a="dismissnotif" aria-label="Dismiss">×</button><div class="app"><i></i>${S.notif.app} · now</div><b>${S.notif.title}</b><p>${S.notif.body}</p></div>`;
+  if(S.ptoast) o+=`<div class="ptoast">${S.ptoast}</div>`;
+  document.getElementById('overlaySlot').innerHTML=o;
+  renderPanel();
+}
+let toastT;
+function ptoast(m){S.ptoast=m;render();clearTimeout(toastT);toastT=setTimeout(()=>{S.ptoast=null;render()},2800)}
+function go(s){S.screen=s;S.sheet=null;document.getElementById('screen').scrollTop=0;render()}
+
+function submit(said){
+  if(!said||!said.trim())return;
+  const s=sentences()[S.idx];
+  S.analyzing=true;S.listening=false;render();
+  const started=performance.now();
+  setTimeout(()=>{
+    const r=evaluate(said,s.en);
+    r.ms=Math.round(performance.now()-started);
+    r.pron=Math.round(68+r.score*28);
+    const a={set:S.set,r,time:new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})};
+    S.attempts.push(a);S.cur=r;S.analyzing=false;
+    if(S.set==='talk'&&S.trial.debited)S.trial.used=true;
+    log('feedback_shown',`${r.ms}ms · ${r.perfect?'perfect':r.title}`);
+    log('history_saved','local-first, synced');
+    if(S.slow){
+      r.reportPending=true;log('analysis_slow_path','quick check shown, full report queued');
+      const sid=S;setTimeout(()=>{if(sid!==S)return;r.reportPending=false;log('report_ready','6.0s, did not block the learner');ptoast('Your detailed pronunciation report is ready ✓')},6000);
+    }
+    render();
+  },S.slow?350:650);
+}
+function listen(){
+  if(!SR){ptoast('Mic not supported here. Tap an answer below');return}
+  try{
+    const rec=new SR();rec.lang='en-IN';rec.interimResults=false;rec.maxAlternatives=1;
+    S.listening=true;render();
+    rec.onresult=e=>submit(e.results[0][0].transcript);
+    rec.onerror=()=>{S.listening=false;render();ptoast("Couldn't hear that. Try again or tap an answer")};
+    rec.onend=()=>{if(S.listening){S.listening=false;render()}};
+    rec.start();log('mic_started','Web Speech API, en-IN');
+  }catch(e){S.listening=false;ptoast('Mic unavailable. Tap an answer below')}
+}
+function startUnlock(){
+  S.unlock={step:0,attempt:1,ticket:String(40000+Math.floor(Math.random()*9999))};go('unlocking');
+  const slow=S.delay;
+  const sid=S,T=(ms,f)=>setTimeout(()=>{if(sid===S&&S.screen==='unlocking'){f();render()}},ms);
+  T(500,()=>{S.unlock.step=1;log('payment_captured','₹9 · UPI')});
+  T(1000,()=>{S.unlock.step=2;log('mandate_created',`max ₹${PLANS[S.trial.plan].price} · first debit ${D3}`)});
+  if(!slow){T(1700,unlocked)}
+  else{
+    T(2600,()=>{S.unlock.attempt=2;log('entitlement_retry','webhook late, polling with backoff');log('ticket_auto_created','SN-'+S.unlock.ticket)});
+    T(6500,unlocked);
+  }
+}
+function unlocked(){if(S.unlock.step>=3)return;S.unlock.step=3;S.trial.status='trial';S.guide.trial=true;log('premium_unlocked',S.delay?'self-healed after retry':'instant')}
+
+function act(a,el){
+  const [k,v]=a.split(':');
+  switch(k){
+    case 'go': if(v==='offer'){log('offer_viewed',S.screen==='result'?'after first win':'from home')} go(v); break;
+    case 'lang': S.lang=v;log('language_selected',v==='en'?'English only (new option)':v);go('goal');break;
+    case 'goal': S.goal=v;S.set='first';S.idx=0;S.cur=null;log('goal_selected',v);log('first_win_started','no paywall before value');go('practice');break;
+    case 'listen': if(!S.listening)listen();break;
+    case 'say': submit(sentences()[S.idx].alts[+v]);break;
+    case 'next':
+      S.cur=null;
+      if(S.idx<sentences().length-1){S.idx++;render()}
+      else if(S.set==='first'){S.guide.win=true;log('first_win_completed',`${S.attempts.length} sentences`);go('result')}
+      else{go('home');ptoast('Practice saved to History ✓')}
+      break;
+    case 'talk':
+      if(S.trial.status==='none'&&S.attempts.some(x=>x.set==='talk')){log('offer_viewed','daily free chat used');go('offer');break}
+      S.set='talk';S.idx=0;S.cur=null;go('practice');break;
+    case 'notnow': log('offer_dismissed','instant "Not now", no delay');go('home');ptoast('No problem. Your free daily Nova chat is waiting');break;
+    case 'plan': S.trial.plan=v;render();break;
+    case 'remind': S.trial.remind=!S.trial.remind;render();break;
+    case 'consent': S.trial.consent=el.checked;if(el.checked)log('consent_confirmed',`₹${PLANS[S.trial.plan].price} on ${D3}`);render();break;
+    case 'pay': if(!S.trial.consent)return;S.sheet='pay';render();break;
+    case 'approve': S.sheet=null;log('trial_started',`₹9 · ${S.trial.plan}`);startUnlock();break;
+    case 'restore': log('restore_tapped','manual entitlement refresh');unlocked();render();break;
+    case 'sheet': S.sheet=v;render();break;
+    case 'closesheet': if(el.closest('[data-stop]'))return;S.sheet=null;render();break;
+    case 'plan2': S.trial.plan=v;S.sheet=null;log('plan_switched',v);S.guide.control=true;go('plan');ptoast(`Switched to ${PLANS[v].name}. New price from your next charge`);break;
+    case 'pause': S.trial.status='paused';S.sheet=null;S.guide.control=true;log('plan_paused','1 month, mandate paused');go('plan');break;
+    case 'resume': S.trial.status=S.trial.debited?'active':'trial';log('plan_resumed','');render();break;
+    case 'cancel': S.trial.status='cancelled';S.sheet=null;S.guide.control=true;log('autopay_cancelled',S.day>=2?'from reminder':'from My plan, 1 tap');go('plan');ptoast("AutoPay cancelled. You won't be charged again");break;
+    case 'keep': S.sheet=null;log('reminder_continue','user chose to continue');go('home');ptoast(`Great! Premium continues from ${D3}`);break;
+    case 'refund':
+      if(S.trial.used){log('refund_review_requested','ticket, 48h SLA');ptoast("Request sent. We'll reply within 48 hours")}
+      else{S.trial.refunded=true;S.trial.status='cancelled';S.guide.control=true;log('refund_instant',`₹${PLANS[S.trial.plan].price} · unused since debit · policy clause 2`);ptoast(`₹${PLANS[S.trial.plan].price} refund started. It reaches your bank in 5–7 days`)}
+      render();break;
+    case 'notif': if(el.closest('.x'))return;const n=S.notif;S.notif=null;if(n&&n.open)n.open();else render();break;
+    case 'dismissnotif': S.notif=null;render();break;
+  }
+}
+document.getElementById('proto').addEventListener('click',e=>{
+  const el=e.target.closest('[data-a]');if(!el)return;
+  if(el.matches('input[type=checkbox]'))return;
+  if(el.dataset.a==='closesheet'&&e.target.closest('[data-stop]'))return;
+  act(el.dataset.a,el);
+});
+document.getElementById('proto').addEventListener('change',e=>{if(e.target.matches('input[data-a]'))act(e.target.dataset.a,e.target)});
+document.getElementById('proto').addEventListener('submit',e=>{
+  if(e.target.dataset.form==='typed'){e.preventDefault();submit(e.target.t.value)}
+});
+
+/* ---------- time travel & demo controls ---------- */
+function jumpDay(d){
+  if(S.trial.status==='none'){flashPanel('Start the ₹9 trial first (step 2).');return}
+  if(d===2){
+    if(S.day>=2){flashPanel('Already past Day 2.');return}
+    S.day=2;
+    if(S.trial.status!=='trial'){flashPanel(`Day 2: no reminder needed, since the plan is ${S.trial.status}.`);render();return}
+    log('reminder_sent',`T-24h · WhatsApp${S.trial.remind?'':' (off)'} + in-app`);S.guide.remind=true;
+    S.notif={app:S.trial.remind?'WhatsApp · Supernova':'Supernova',title:`Kal ₹${PLANS[S.trial.plan].price} katega · trial ends ${D3}`,body:`You spoke ${S.attempts.reduce((n,a)=>n+tok(a.r.said).length,0)} words with Nova. Tap to continue, switch or cancel. No charge if you cancel today.`,open:()=>{S.sheet='remind';if(S.screen==='unlocking')S.screen='home';render()}};
+    if(S.screen==='unlocking')S.screen='home';
+    render();
+  }
+  if(d===3){
+    if(S.day<2){jumpDay(2);S.notif=null}
+    S.day=3;
+    if(S.trial.status==='trial'){
+      S.trial.debited=true;S.trial.status='active';log('autopay_debit',`₹${PLANS[S.trial.plan].price} · as reminded on ${D2}`);
+      S.notif={app:'Supernova',title:`₹${PLANS[S.trial.plan].price} paid · Premium active`,body:`Charged via UPI AutoPay as reminded. Next charge on ${S.trial.plan==='monthly'?D33:fmt(addD(93))}. Manage or get a refund in My plan.`,open:()=>go('plan')};
+    } else if(S.trial.status==='cancelled'&&!S.trial.debited){
+      log('trial_ended_no_charge','AutoPay was cancelled');
+      S.notif={app:'Supernova',title:'Trial ended. No money was taken',body:'Your free daily Nova conversation is still here whenever you want it.',open:()=>go('home')};
+    }
+    if(S.screen==='unlocking')S.screen='home';
+    render();
+  }
+}
+let flashT;
+function flashPanel(m){S.flash=m;renderPanel();clearTimeout(flashT);flashT=setTimeout(()=>{S.flash=null;renderPanel()},3200)}
+function renderPanel(){
+  const p=document.getElementById('panel');if(!p)return;
+  const g=S.guide;
+  const ev=S.events.slice().reverse().map(e=>`<div><span style="color:#5C6480">${e.t}</span> <span class="e">${e.ev}</span>${e.detail?` · ${esc(e.detail)}`:''}</div>`).join('')||'<div>Interact with the phone to see tracked events…</div>';
+  p.innerHTML=`<h3>Demo controls</h3><p class="panel-note" style="margin:0 0 12px">Act out the first week. Everything runs in your browser; nothing is sent anywhere.</p>
+  <div class="ptabs"><button class="${S.tab==='controls'?'on':''}" data-p="tab:controls">Guide</button><button class="${S.tab==='insights'?'on':''}" data-p="tab:insights">Insights</button><button class="${S.tab==='log'?'on':''}" data-p="tab:log">Events (${S.events.length})</button></div>
+  ${S.flash?`<div style="background:rgba(255,199,0,.12);border:1px solid rgba(255,199,0,.4);color:#FFE38A;border-radius:10px;padding:8px 10px;margin-bottom:10px;font-size:13px">${S.flash}</div>`:''}
+  ${S.tab==='controls'?`
+    <ol class="guide">
+      <li class="${g.win?'done':''}"><b>First Win:</b> Talk to Nova and speak 3 sentences<small>Problem 2 · value before any price</small></li>
+      <li class="${g.trial?'done':''}"><b>Honest offer:</b> read the timeline, tick consent, start the ₹9 trial<small>Problem 1 · no surprise money</small></li>
+      <li class="${g.remind?'done':''}"><b>Jump to Day 2:</b> tap the reminder notification<small>Problem 1 · T-24h reminder</small></li>
+      <li class="${g.control?'done':''}"><b>Take control:</b> cancel, pause or switch, or jump to Day 3 and try "Charged by mistake?"<small>Problem 1 · 1-tap control and refund</small></li>
+    </ol>
+    <div class="ctl"><div><b style="color:#fff">Simulate slow audio analysis</b><small>Problem 3 · see feedback that doesn't block</small></div><button class="switch ${S.slow?'on':''}" data-p="slow" aria-label="Slow audio"></button></div>
+    <div class="ctl"><div><b style="color:#fff">Simulate late payment unlock</b><small>Problem 3 · self-healing unlock + ticket</small></div><button class="switch ${S.delay?'on':''}" data-p="delay" aria-label="Unlock delay"></button></div>
+    <div class="pbtns"><button data-p="day:2">⏩ Jump to Day 2</button><button data-p="day:3">⏩ Jump to Day 3</button><button class="wide" data-p="reset">↺ Restart demo</button></div>
+    <p class="panel-note">Today in the demo: <b style="color:#fff">Day ${S.day+1}</b> · trial charge date ${D3}</p>`
+  :S.tab==='insights'?`
+    <p class="panel-note" style="margin-top:0">A/B targets for this flow vs today's flow. <b style="color:#FFC700">These are targets, not Supernova data.</b></p>
+    ${[['Paid retention into month 2 / trial start','+10% rel.','#3CDB9E','Primary · revenue that survives refunds'],['Refund requests / 100 debits','−30%','#3CDB9E','Supporting'],['Mandates revoked ≤ 7 days after debit','−25%','#3CDB9E','Supporting'],['Billing share of new 1★ reviews','−50%','#3CDB9E','Today: 33% of detailed negatives'],['Trial starts / install','≥ −5%','#FFC700','Guardrail · roll back if worse'],['Time to first feedback p95','< 3 s','#40B9F8','SLO · today: "up to 15 minutes"'],['Payment → unlock p95','< 10 s','#40B9F8','SLO · today: 3.4% report paid-but-locked']].map(([a,b,c,d])=>`<div class="kpi"><b>${a}</b><span class="tg" style="color:${c}">${b}</span><small>${d}</small></div>`).join('')}
+    <div class="kpi"><b>This session</b><span></span><small>${S.attempts.length} sentences · ${S.attempts.filter(a=>!a.r.perfect).length} fixes · offer ${S.events.some(e=>e.ev==='offer_viewed')?'seen':'not seen'} · consent ${S.trial.consent?'✓':'–'} · reminder ${S.guide.remind?'✓':'–'} · status: ${S.trial.status}</small></div>`
+  :`<div class="log">${ev}</div><p class="panel-note">These are the analytics events this flow would fire. They feed the dashboard and the A/B readout.</p>`}`;
+}
+document.getElementById('panel').addEventListener('click',e=>{
+  const b=e.target.closest('[data-p]');if(!b)return;
+  const [k,v]=b.dataset.p.split(':');
+  if(k==='tab'){S.tab=v;renderPanel()}
+  if(k==='slow'){S.slow=!S.slow;log('demo_toggle',`slow analysis ${S.slow?'on':'off'}`)}
+  if(k==='delay'){S.delay=!S.delay;log('demo_toggle',`late unlock ${S.delay?'on':'off'}`)}
+  if(k==='day'){jumpDay(+v);if(innerWidth<=900)document.getElementById('panel').classList.remove('show')}
+  if(k==='reset'){const keep={slow:S.slow,delay:S.delay};fresh();Object.assign(S,keep);render()}
+});
+document.getElementById('panelToggle').addEventListener('click',()=>document.getElementById('panel').classList.toggle('show'));
+
+/* open / close */
+const proto=document.getElementById('proto');
+function openProto(){proto.classList.add('open');document.body.style.overflow='hidden';render();if(location.hash!=='#demo')history.replaceState(null,'','#demo')}
+function closeProto(){proto.classList.remove('open');document.body.style.overflow='';history.replaceState(null,'',location.pathname)}
+document.querySelectorAll('[data-open-proto]').forEach(b=>b.addEventListener('click',openProto));
+document.getElementById('protoClose').addEventListener('click',closeProto);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&proto.classList.contains('open')){if(S.sheet){S.sheet=null;render()}else closeProto()}});
+if(location.hash==='#demo')openProto();
+setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit',hour12:false})},10000);
+document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit',hour12:false});
+</script>
+</body>
+</html>
